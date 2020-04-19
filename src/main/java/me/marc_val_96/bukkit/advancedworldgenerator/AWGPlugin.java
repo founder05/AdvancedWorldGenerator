@@ -32,7 +32,7 @@ public class AWGPlugin extends JavaPlugin {
     public AWGListener listener;
     public AWGCommandExecutor commandExecutor;
     /*
-     * Debug setting. Set it to true to make Terrain Control try to disable
+     * Debug setting. Set it to true to make AWG try to disable
      * itself. However, terrain generators aren't cleaned up properly by
      * Bukkit, so this won't really work until that bug is fixed.
      */
@@ -56,7 +56,7 @@ public class AWGPlugin extends JavaPlugin {
         AWG.setEngine(new BukkitEngine(this));
         if (!Bukkit.getWorlds().isEmpty() && !cleanupOnDisable) {
             // Reload "handling"
-            // (worlds are already loaded and TC didn't clean up itself)
+            // (worlds are already loaded and AWG didn't clean up itself)
             AWG.log(LogMarker.FATAL, Arrays.asList(
                     "The server was just /reloaded! AWG has problems handling this, ",
                     "as old parts from before the reload have not been cleaned up. ",
