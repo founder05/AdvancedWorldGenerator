@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class AWGPlugin extends JavaPlugin {
+public final class AWGPlugin extends JavaPlugin {
 
     public final HashMap<String, BukkitWorld> worlds = new HashMap<String, BukkitWorld>();
     private final HashMap<String, BukkitWorld> notInitedWorlds = new HashMap<String, BukkitWorld>();
@@ -46,7 +46,6 @@ public class AWGPlugin extends JavaPlugin {
                 world.disable();
             }
             worlds.clear();
-
             AWG.stopEngine();
         }
     }

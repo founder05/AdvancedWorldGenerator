@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ReloadCommand extends BaseCommand {
 
-    public ReloadCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public ReloadCommand(AWGPlugin awgPlugin) {
+        super(awgPlugin);
         name = "reload";
         perm = AWGPerm.CMD_RELOAD.node;
         usage = "reload [world_name]";
