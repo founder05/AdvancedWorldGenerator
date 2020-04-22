@@ -1,8 +1,10 @@
 package me.marc_val_96.bukkit.advancedworldgenerator.generator;
 
+
 import com.google.common.base.Preconditions;
 import com.marc_val_96.advancedworldgenerator.configuration.WorldConfig;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.StructureNames;
+import java.util.List;
 import me.marc_val_96.bukkit.advancedworldgenerator.BukkitWorld;
 import net.minecraft.server.v1_12_R1.BiomeBase;
 import net.minecraft.server.v1_12_R1.BlockPosition;
@@ -10,8 +12,6 @@ import net.minecraft.server.v1_12_R1.EnumCreatureType;
 import net.minecraft.server.v1_12_R1.World;
 import org.bukkit.craftbukkit.v1_12_R1.generator.CustomChunkGenerator;
 import org.bukkit.generator.ChunkGenerator;
-
-import java.util.List;
 
 public class AWGInternalChunkGenerator extends CustomChunkGenerator {
 

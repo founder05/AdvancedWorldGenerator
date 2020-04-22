@@ -3,14 +3,18 @@ package me.marc_val_96.bukkit.advancedworldgenerator.generator.structures;
 import com.marc_val_96.advancedworldgenerator.LocalBiome;
 import com.marc_val_96.advancedworldgenerator.configuration.ConfigProvider;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.StructureNames;
-import me.marc_val_96.bukkit.advancedworldgenerator.BukkitBiome;
-import net.minecraft.server.v1_12_R1.*;
-import net.minecraft.server.v1_12_R1.WorldGenMonument.WorldGenMonumentStart;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import me.marc_val_96.bukkit.advancedworldgenerator.BukkitBiome;
+import net.minecraft.server.v1_12_R1.BiomeBase;
+import net.minecraft.server.v1_12_R1.BlockPosition;
+import net.minecraft.server.v1_12_R1.EntityGuardian;
+import net.minecraft.server.v1_12_R1.StructureGenerator;
+import net.minecraft.server.v1_12_R1.World;
+import net.minecraft.server.v1_12_R1.StructureStart;
+import net.minecraft.server.v1_12_R1.WorldGenMonument.WorldGenMonumentStart;
 
 /**
  * The ocean monument generator.

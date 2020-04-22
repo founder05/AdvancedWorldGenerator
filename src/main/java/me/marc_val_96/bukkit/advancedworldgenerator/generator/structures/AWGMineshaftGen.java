@@ -7,9 +7,14 @@ import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig.Mineshaf
 import com.marc_val_96.advancedworldgenerator.util.ChunkCoordinate;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.StructureNames;
 import me.marc_val_96.bukkit.advancedworldgenerator.util.WorldHelper;
-import net.minecraft.server.v1_12_R1.*;
 
 import java.util.Random;
+import net.minecraft.server.v1_12_R1.StructureGenerator;
+import net.minecraft.server.v1_12_R1.World;
+import net.minecraft.server.v1_12_R1.BlockPosition;
+import net.minecraft.server.v1_12_R1.StructureStart;
+import net.minecraft.server.v1_12_R1.WorldGenMineshaft;
+import net.minecraft.server.v1_12_R1.WorldGenMineshaftStart;
 
 public class AWGMineshaftGen extends StructureGenerator {
     // canSpawnStructureAtCoords
