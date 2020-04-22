@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListCommand extends BaseCommand {
-    public ListCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public ListCommand(AWGPlugin plugin) {
+        super(plugin);
         name = "list";
         perm = AWGPerm.CMD_LIST.node;
         usage = "list [-w World] [page]";
@@ -40,7 +40,7 @@ public class ListCommand extends BaseCommand {
                 if (world.getConfigs().getCustomObjects().isEmpty())
                     sender.sendMessage(MESSAGE_COLOR + "This world does not have custom objects");
 
-                List<String> pluginList = new ArrayList<String>();
+                List<String> pluginList = new ArrayList<>();
                 for (CustomObject object : world.getConfigs().getCustomObjects()) {
                     pluginList.add(VALUE_COLOR + object.getName());
                 }
@@ -65,7 +65,7 @@ public class ListCommand extends BaseCommand {
         if (globalObjects.isEmpty())
             sender.sendMessage(MESSAGE_COLOR + "This global directory does not have custom objects");
 
-        List<String> pluginList = new ArrayList<String>();
+        List<String> pluginList = new ArrayList<>();
         for (CustomObject object : globalObjects) {
             if (object.canSpawnAsObject()) {
                 pluginList.add(VALUE_COLOR + object.getName());

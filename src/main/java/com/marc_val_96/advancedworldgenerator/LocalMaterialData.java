@@ -2,19 +2,20 @@ package com.marc_val_96.advancedworldgenerator;
 
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultMaterial;
 
-/**
- * Represents one of Minecraft's materials. Also includes its data value.
- * Immutable.
- *
- * @see AWGEngine#readMaterial(String)
- * @see AWGEngine#toLocalMaterialData(DefaultMaterial, int)
- */
-public interface LocalMaterialData {
+public interface LocalMaterialData
+{
+    /**
+     * Gets whether this material can be used as an anchor point for a smooth area
+     *
+     * @return True if this material is a solid block, false if it is a tile-entity, half-slab, stairs(?), water, wood or leaves
+     */
+    public boolean isSmoothAreaAnchor(boolean allowWood, boolean ignoreWater);
 
     /**
-     * Gets the name of this material. This will be the name given by Mojang.
-     * Block data is appended to the name, separated with a colon, like
-     * "minecraft:wool:2".
+     * Gets the name of this material. If a {@link #toDefaultMaterial()
+     * DefaultMaterial is available,} that name is used, otherwise it's up to
+     * the mod that provided this block to name it. Block data is appended to
+     * the name, separated with a colon, like "WOOL:2".
      *
      * @return The name of this material.
      */
@@ -27,23 +28,6 @@ public interface LocalMaterialData {
      */
     @Override
     String toString();
-
-    /**
-     * Gets the internal block id. At the moment, all of Minecraft's vanilla
-     * materials have a static id, but this can change in the future. Mods
-     * already have dynamic ids.
-     *
-     * @return The internal block id.
-     */
-    int getBlockId();
-
-    /**
-     * Gets the internal block data. Block data represents things like growth
-     * stage and rotation.
-     *
-     * @return The internal block data.
-     */
-    byte getBlockData();
 
     /**
      * Gets whether this material is a liquid, like water or lava.
@@ -66,10 +50,13 @@ public interface LocalMaterialData {
      * Gets whether this material is air. This is functionally equivalent to
      * {@code isMaterial(DefaultMaterial.AIR)}, but may yield better
      * performance.
-     *
      * @return True if this material is air, false otherwise.
      */
+    boolean isEmptyOrAir();
+
     boolean isAir();
+
+    boolean isEmpty();
 
     /**
      * Gets the default material belonging to this material. The block data will
@@ -91,56 +78,22 @@ public interface LocalMaterialData {
      * Gets whether the block is of the given material. Block data is ignored,
      * as {@link DefaultMaterial} doesn't include block data.
      *
-     * @param material The material to check.
+     * @param material
+     *            The material to check.
      * @return True if this block is of the given material, false otherwise.
      */
     boolean isMaterial(DefaultMaterial material);
 
     /**
-     * Gets an instance with the same material as this object, but with the
-     * given block data. This instance is not modified.
-     *
-     * @param newData The new block data.
-     * @return An instance with the given block data.
-     */
-    LocalMaterialData withBlockData(int newData);
-
-    /**
-     * Gets an instance with the same material as this object, but the default
-     * block data of the material. This instance is not modified.
-     *
-     * @return An instance with the default block data.
-     */
-    LocalMaterialData withDefaultBlockData();
-
-    /**
      * Gets whether this material equals another material. The block data is
      * taken into account.
      *
-     * @param other The other material.
+     * @param other
+     *            The other material.
      * @return True if the materials are equal, false otherwise.
      */
     @Override
     boolean equals(Object other);
-
-    /**
-     * Gets the hashCode of the material, based on the block id and block data.
-     * The hashCode must be unique, which is possible considering that there are
-     * only 4096 * 16 possible materials.
-     *
-     * @return The unique hashCode.
-     */
-    @Override
-    int hashCode();
-
-    /**
-     * Gets the hashCode of the material, based on only the block id. No
-     * hashCode returned by this method may be the same as any hashCode returned
-     * by {@link #hashCode()}.
-     *
-     * @return The unique hashCode.
-     */
-    int hashCodeWithoutBlockData();
 
     /**
      * Gets a new material that is rotated 90 degrees. North -> west -> south ->
@@ -152,11 +105,32 @@ public interface LocalMaterialData {
     LocalMaterialData rotate();
 
     /**
+     * Gets a new material that is rotated 90 degrees. North -> west -> south ->
+     * east. If this material cannot be rotated, the material itself is
+     * returned.
+     *
+     * @return The rotated material.
+     */
+    LocalMaterialData rotate(int rotateTimes);
+
+    /**
+     * Parses this material through the fallback system of world if required.
+     *
+     * @param world The world this material will be parsed through, each world may have different fallbacks.
+     * @return The parsed material
+     */
+    LocalMaterialData parseForWorld(LocalWorld world);
+
+    /**
      * Gets whether this material falls down when no other block supports this
      * block, like gravel and sand do.
-     *
      * @return True if this material can fall, false otherwise.
      */
     boolean canFall();
 
+    /**
+     * Check whether this material has been parsed if needed.
+     * @return
+     */
+    public boolean isParsed();
 }

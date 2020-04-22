@@ -12,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class BiomeCommand extends BaseCommand {
-    public BiomeCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public BiomeCommand(AWGPlugin awgPlugin) {
+        super(awgPlugin);
         name = "biome";
         perm = AWGPerm.CMD_BIOME.node;
         usage = "biome [-f] [-s]";

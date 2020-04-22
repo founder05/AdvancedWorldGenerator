@@ -14,7 +14,7 @@ import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultMateria
 import java.util.Random;
 
 public class CavesGen extends TerrainGenBase {
-    private WorldConfig worldSettings;
+    private final WorldConfig worldSettings;
 
     public CavesGen(WorldConfig wrk, LocalWorld world) {
         super(world);
@@ -127,7 +127,7 @@ public class CavesGen extends TerrainGenBase {
             for (int local_x = m; (!waterFound) && (local_x < n); local_x++) {
                 for (int local_z = i3; (!waterFound) && (local_z < i4); local_z++) {
                     for (int local_y = i2 + 1; (!waterFound) && (local_y >= i1 - 1); local_y--) {
-                        if (local_y >= 0 && local_y < this.worldSettings.worldHeightCap) {
+                        if (local_y < this.worldSettings.worldHeightCap) {
                             LocalMaterialData material = generatingChunkBuffer.getBlock(local_x, local_y, local_z);
                             if (material.isMaterial(DefaultMaterial.WATER)
                                     || material.isMaterial(DefaultMaterial.STATIONARY_WATER)) {

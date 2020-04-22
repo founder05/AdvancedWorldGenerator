@@ -1,51 +1,48 @@
 package com.marc_val_96.advancedworldgenerator.util;
 
 import com.marc_val_96.advancedworldgenerator.LocalMaterialData;
+import com.marc_val_96.advancedworldgenerator.LocalWorld;
 
-public class MaterialSetEntry {
-    private final LocalMaterialData material;
+//TODO: This seems really inefficient and riddiculously overcomplicated, burn with fire.
+//Looks like this is optimised mainly for use with blockchecks and BOfunctions, resources like oregen also use it though,
+//they shouldn't need any other functionality than containing a list of materials.
+public class MaterialSetEntry
+{
+    public LocalMaterialData material;
     private final boolean includesBlockData;
 
-    public MaterialSetEntry(LocalMaterialData material, boolean includesBlockData) {
+    MaterialSetEntry(LocalMaterialData material, boolean includesBlockData)
+    {
         this.material = material;
         this.includesBlockData = includesBlockData;
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other)
+    {
         // Uses hashCode, as it is guaranteed to be unique for this class
-        if (other instanceof MaterialSetEntry) {
+        if (other instanceof MaterialSetEntry)
+        {
             return other.hashCode() == hashCode();
         }
         return false;
     }
 
-    /**
-     * Gets the hashCode of this entry, which is equal to either
-     * {@link LocalMaterialData#hashCode()} or
-     * {@link LocalMaterialData#hashCodeWithoutBlockData()}. This means that
-     * the hashCode is unique.
-     *
-     * @return The unique hashCode.
-     */
     @Override
-    public int hashCode() {
-        if (includesBlockData) {
-            return material.hashCode();
-        } else {
-            return material.hashCodeWithoutBlockData();
-        }
+    public int hashCode()
+    {
+        return material.hashCode();
+    }
+
+    public void parseForWorld(LocalWorld world)
+    {
+        material.parseForWorld(world);
     }
 
     @Override
-    public String toString() {
-        String output = material.toString();
-        if (includesBlockData && material.getBlockData() == 0) {
-            // Turn things like "WOOL" back into "WOOL:0" (material.toString
-            // never includes "*:0")
-            return output + ":0";
-        }
-        return output;
+    public String toString()
+    {
+        return material.toString();
     }
 
     /**
@@ -54,8 +51,10 @@ public class MaterialSetEntry {
      *
      * @return The rotated check.
      */
-    public MaterialSetEntry rotate() {
-        if (!includesBlockData) {
+    MaterialSetEntry rotate()
+    {
+        if (!includesBlockData)
+        {
             // Don't rotate block data
             return new MaterialSetEntry(material, false);
         } else {

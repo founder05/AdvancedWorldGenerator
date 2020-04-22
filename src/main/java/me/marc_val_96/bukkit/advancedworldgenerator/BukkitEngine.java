@@ -44,7 +44,7 @@ public class BukkitEngine extends AWGEngine {
         // This is so that things like "minecraft:stone" aren't parsed
         // as the block "minecraft" with data "stone", but instead as the
         // block "minecraft:stone" with no block data.
-        Block block = Block.getByName(input);
+        final Block block = Block.getByName(input);
         if (block != null) {
             return BukkitMaterialData.ofMinecraftBlock(block);
         }

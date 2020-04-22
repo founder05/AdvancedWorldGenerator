@@ -1,7 +1,7 @@
 package me.marc_val_96.bukkit.advancedworldgenerator.generator;
 
 import com.marc_val_96.advancedworldgenerator.configuration.WorldConfig;
-import com.marc_val_96.advancedworldgenerator.generator.ChunkProviderTC;
+import com.marc_val_96.advancedworldgenerator.generator.ChunkProviderAWG;
 import com.marc_val_96.advancedworldgenerator.util.ChunkCoordinate;
 import me.marc_val_96.bukkit.advancedworldgenerator.AWGPlugin;
 import me.marc_val_96.bukkit.advancedworldgenerator.BukkitWorld;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AWGChunkGenerator extends ChunkGenerator {
-    private ChunkProviderTC chunkProviderTC;
+    private ChunkProviderAWG chunkProviderAWG;
     private ArrayList<BlockPopulator> BlockPopulator = new ArrayList<BlockPopulator>();
     private boolean NotGenerate = false;
     private AWGPlugin plugin;
@@ -30,7 +30,7 @@ public class AWGChunkGenerator extends ChunkGenerator {
      * @param world The world of this generator.
      */
     private void makeSureWorldIsInitialized(World world) {
-        if (this.chunkProviderTC == null) {
+        if (this.chunkProviderAWG == null) {
             // Not yet initialized, do it now
             this.plugin.onWorldInit(world);
         }
@@ -42,7 +42,7 @@ public class AWGChunkGenerator extends ChunkGenerator {
      * @param _world The BukkitWorld instance.
      */
     public void onInitialize(BukkitWorld _world) {
-        this.chunkProviderTC = new ChunkProviderTC(_world.getConfigs(), _world);
+        this.chunkProviderAWG = new ChunkProviderAWG(_world.getConfigs(), _world);
 
         WorldConfig.TerrainMode mode = _world.getConfigs().getWorldConfig().ModeTerrain;
 
@@ -79,7 +79,7 @@ public class AWGChunkGenerator extends ChunkGenerator {
 
         ChunkCoordinate chunkCoord = ChunkCoordinate.fromChunkCoords(chunkX, chunkZ);
         BukkitChunkBuffer chunkBuffer = new BukkitChunkBuffer(chunkCoord, chunkData);
-        this.chunkProviderTC.generate(chunkBuffer);
+        this.chunkProviderAWG.generate(chunkBuffer);
 
         return chunkData;
     }

@@ -111,7 +111,6 @@ class SaplingListener {
             if (blockState.getX() <= lowestXZ.getX() && blockState.getZ() <= lowestXZ.getZ()) {
                 // Found a better candidate
                 lowestXZ = blockState;
-                continue;
             }
         }
 

@@ -26,7 +26,7 @@ import static com.marc_val_96.advancedworldgenerator.util.ChunkCoordinate.CHUNK_
 // Please don`t remove this. This disable warnings about x+0 arithmetic
 // operations in my IDE. Khorn.
 @SuppressWarnings("PointlessArithmeticExpression")
-public class ChunkProviderTC {
+public class ChunkProviderAWG {
     public static final int HEIGHT_BITS = 8;
     public static final int HEIGHT_BITS_PLUS_FOUR = HEIGHT_BITS + 4;
     // Several constants describing the chunk size of Minecraft
@@ -70,7 +70,7 @@ public class ChunkProviderTC {
     private int[] biomeArray;
     private int[] riverArray;
 
-    public ChunkProviderTC(ConfigProvider configs, LocalWorld world) {
+    public ChunkProviderAWG(ConfigProvider configs, LocalWorld world) {
         this.configProvider = configs;
         this.localWorld = world;
         this.heightCap = world.getHeightCap();

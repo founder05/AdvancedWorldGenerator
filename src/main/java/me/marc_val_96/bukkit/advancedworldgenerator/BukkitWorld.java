@@ -45,7 +45,7 @@ public class BukkitWorld implements LocalWorld {
     private WorldServer world;
     private ServerConfigProvider settings;
     private CustomObjectStructureCache structureCache;
-    private String name;
+    private final String name;
     private BiomeGenerator biomeGenerator;
     private DataConverter dataConverter;
     private WorldGenDungeons dungeon;
@@ -748,8 +748,7 @@ public class BukkitWorld implements LocalWorld {
         nmsTag = this.dataConverter.a(DataConverterTypes.BLOCK_ENTITY, nmsTag, -1);
         // Add that data to the current tile entity in the world
         TileEntity tileEntity = world.getTileEntity(new BlockPosition(x, y, z));
-        if (tileEntity != null) {
-        } else {
+        if (tileEntity == null) {
             AWG.log(LogMarker.DEBUG, "Skipping tile entity with id {}, cannot be placed at {},{},{} on id {}",
                     nmsTag.getString("id"), x, y, z, getMaterial(x, y, z));
         }

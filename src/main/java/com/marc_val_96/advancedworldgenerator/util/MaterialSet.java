@@ -1,7 +1,8 @@
 package com.marc_val_96.advancedworldgenerator.util;
 
-import com.marc_val_96.advancedworldgenerator.AWG;
+
 import com.marc_val_96.advancedworldgenerator.LocalMaterialData;
+import com.marc_val_96.advancedworldgenerator.LocalWorld;
 import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
 import com.marc_val_96.advancedworldgenerator.util.helpers.StringHelper;
 
@@ -15,12 +16,16 @@ import java.util.Set;
  * this set, and as such, this set can't be iterated over and its size remains
  * unknown.
  */
-public class MaterialSet {
+// TODO: This seems really inefficient and riddiculously overcomplicated, burn with fire.
+// Looks like this is optimised mainly for use with blockchecks and BOfunctions, resources like oregen also use it though,
+// they shouldn't need any other functionality than containing a list of materials.
+public class MaterialSet
+{
     /**
      * Keyword that adds all materials to the set when used in
      * {@link #parseAndAdd(String)}.
      */
-    public static final String ALL_MATERIALS = "All";
+    private static final String ALL_MATERIALS = "All";
 
     /**
      * Keyword that adds all solid materials to the set when used in
@@ -32,57 +37,51 @@ public class MaterialSet {
      * Keyword that adds all non solid materials to the set when used in
      * {@link #parseAndAdd(String)}.
      */
-    public static final String NON_SOLID_MATERIALS = "NonSolid";
+    private static final String NON_SOLID_MATERIALS = "NonSolid";
 
     private boolean allMaterials = false;
     private boolean allSolidMaterials = false;
     private boolean allNonSolidMaterials = false;
-
     private int[] materialIntSet = new int[0];
-    private Set<MaterialSetEntry> materials = new LinkedHashSet<MaterialSetEntry>();
+    public Set<MaterialSetEntry> materials = new LinkedHashSet<MaterialSetEntry>();
     private boolean intSetUpToDate = true;
+    private boolean parsed = false;
 
-    /**
-     * Adds the given material to the list.
-     *
-     * <p>If the material is "All", all
-     * materials in existence are added to the list. If the material is
-     * "Solid", all solid materials are added to the list. Otherwise,
-     * {@link AWG#readMaterial(String)} is used to read the
-     * material.
-     *
-     * <p>If the material {@link StringHelper#specifiesBlockData(String)
-     * specifies block data}, it will match only materials with exactly that
-     * block data. If the material doesn't specify block data, it will match
-     * materials with any block data.
-     *
-     * @param input The name of the material to add.
-     * @throws InvalidConfigException If the name is invalid.
-     */
-    public void parseAndAdd(String input) throws InvalidConfigException {
-        if (input.equalsIgnoreCase(ALL_MATERIALS)) {
+
+    public void parseAndAdd(String input) throws InvalidConfigException
+    {
+        if (input.equalsIgnoreCase(ALL_MATERIALS))
+        {
             this.allMaterials = true;
             return;
         }
-        if (input.equalsIgnoreCase(SOLID_MATERIALS)) {
+        if (input.equalsIgnoreCase(SOLID_MATERIALS))
+        {
             this.allSolidMaterials = true;
             return;
         }
-        if (input.equalsIgnoreCase(NON_SOLID_MATERIALS)) {
+        if (input.equalsIgnoreCase(NON_SOLID_MATERIALS))
+        {
             this.allNonSolidMaterials = true;
             return;
         }
 
-        LocalMaterialData material = AWG.readMaterial(input);
+        LocalMaterialData material = MaterialHelper.readMaterial(input);
 
         boolean checkIncludesBlockData = StringHelper.specifiesBlockData(input);
+
+        if(material == null)
+        {
+            throw new InvalidConfigException("Invalid block check, material \"" + input + "\" could not be found.");
+        }
 
         // Add to set
         add(new MaterialSetEntry(material, checkIncludesBlockData));
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + (allMaterials ? 1231 : 1237);
@@ -93,27 +92,38 @@ public class MaterialSet {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         MaterialSet other = (MaterialSet) obj;
-        if (allMaterials != other.allMaterials) {
+        if (allMaterials != other.allMaterials)
+        {
             return false;
         }
-        if (allNonSolidMaterials != other.allNonSolidMaterials) {
+        if (allNonSolidMaterials != other.allNonSolidMaterials)
+        {
             return false;
         }
-        if (allSolidMaterials != other.allSolidMaterials) {
+        if (allSolidMaterials != other.allSolidMaterials)
+        {
             return false;
         }
-        return materials.equals(other.materials);
+        if (!materials.equals(other.materials))
+        {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -121,18 +131,34 @@ public class MaterialSet {
      *
      * @param entry The entry to add, may not be null.
      */
-    public void add(MaterialSetEntry entry) {
+    private void add(MaterialSetEntry entry)
+    {
         // Add the appropriate hashCode
         intSetUpToDate = false;
         materials.add(entry);
+    }
+
+    public void parseForWorld(LocalWorld world)
+    {
+        if (!parsed)
+        {
+            for (MaterialSetEntry material : materials)
+            {
+                material.parseForWorld(world);
+            }
+            parsed = true;
+            intSetUpToDate = false;
+        }
     }
 
     /**
      * Updates the int (hashCode) set, so that is is up to date again with the
      * material set.
      */
-    private void updateIntSet() {
-        if (intSetUpToDate) {
+    private void updateIntSet()
+    {
+        if (intSetUpToDate)
+        {
             // Already up to date
             return;
         }
@@ -140,7 +166,8 @@ public class MaterialSet {
         // Update the int set
         materialIntSet = new int[materials.size()];
         int i = 0;
-        for (MaterialSetEntry entry : materials) {
+        for (MaterialSetEntry entry : materials)
+        {
             materialIntSet[i] = entry.hashCode();
             i++;
         }
@@ -149,24 +176,22 @@ public class MaterialSet {
         intSetUpToDate = true;
     }
 
-    /**
-     * Gets whether the specified material is in this collection. Returns
-     * false if the material is null.
-     *
-     * @param material The material to check.
-     * @return True if the material is in this set.
-     */
-    public boolean contains(LocalMaterialData material) {
-        if (material == null) {
+    public boolean contains(LocalMaterialData material)
+    {
+        if (material == null || material.isEmpty())
+        {
             return false;
         }
-        if (allMaterials && !material.isAir()) {
+        if (allMaterials)
+        {
             return true;
         }
-        if (allSolidMaterials && material.isSolid()) {
+        if (allSolidMaterials && material.isSolid())
+        {
             return true;
         }
-        if (allNonSolidMaterials && !material.isSolid()) {
+        if (allNonSolidMaterials && !material.isSolid())
+        {
             return true;
         }
 
@@ -174,10 +199,11 @@ public class MaterialSet {
         updateIntSet();
 
         // Check if the material is included
-        if (Arrays.binarySearch(materialIntSet, material.hashCodeWithoutBlockData()) >= 0) {
+        if (Arrays.binarySearch(materialIntSet, material.hashCode()) >= 0)
+        {
             return true;
         }
-        return Arrays.binarySearch(materialIntSet, material.hashCode()) >= 0;
+        return false;
     }
 
     /**
@@ -188,28 +214,34 @@ public class MaterialSet {
      * @return The string.
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         // Check if all materials are included
-        if (allMaterials) {
+        if (allMaterials)
+        {
             return ALL_MATERIALS;
         }
 
         StringBuilder builder = new StringBuilder();
         // Check for solid materials
-        if (allSolidMaterials) {
+        if (allSolidMaterials)
+        {
             builder.append(SOLID_MATERIALS).append(',');
         }
         // Check for non-solid materials
-        if (allNonSolidMaterials) {
+        if (allNonSolidMaterials)
+        {
             builder.append(NON_SOLID_MATERIALS).append(',');
         }
         // Add all other materials
-        for (MaterialSetEntry material : materials) {
+        for (MaterialSetEntry material : materials)
+        {
             builder.append(material.toString()).append(',');
         }
 
         // Remove last ','
-        if (builder.length() > 0) {
+        if (builder.length() > 0)
+        {
             builder.deleteCharAt(builder.length() - 1);
         }
 
@@ -221,22 +253,26 @@ public class MaterialSet {
      *
      * @return The new material set.
      */
-    public MaterialSet rotate() {
+    public MaterialSet rotate()
+    {
         MaterialSet rotated = new MaterialSet();
-        if (this.allMaterials) {
+        if (this.allMaterials)
+        {
             rotated.allMaterials = true;
         }
-        if (this.allSolidMaterials) {
+        if (this.allSolidMaterials)
+        {
             rotated.allSolidMaterials = true;
         }
-        if (this.allNonSolidMaterials) {
+        if (this.allNonSolidMaterials)
+        {
             rotated.allNonSolidMaterials = true;
         }
         rotated.intSetUpToDate = false;
-        for (MaterialSetEntry material : this.materials) {
+        for (MaterialSetEntry material : this.materials)
+        {
             rotated.materials.add(material.rotate());
         }
         return rotated;
     }
-
 }

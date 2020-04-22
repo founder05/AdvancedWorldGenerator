@@ -11,7 +11,7 @@ import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
  * numbers and other colors as decimal numbers. Colors are case insensitive.
  */
 class ColorSetting extends Setting<Integer> {
-    private int defaultValue;
+    private final int defaultValue;
 
     ColorSetting(String name, String defaultValue) {
         super(name);

@@ -18,11 +18,11 @@ public class AWGListener implements Listener {
     private final AWGSender AWGSender;
     private final SaplingListener saplingListener;
 
-    public AWGListener(AWGPlugin plugin) {
-        this.tcPlugin = plugin;
-        this.AWGSender = new AWGSender(plugin);
+    public AWGListener(AWGPlugin awgPlugin) {
+        this.tcPlugin = awgPlugin;
+        this.AWGSender = new AWGSender(awgPlugin);
         this.saplingListener = new SaplingListener();
-        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+        Bukkit.getServer().getPluginManager().registerEvents(this, awgPlugin);
     }
 
     @EventHandler(priority = EventPriority.HIGH)

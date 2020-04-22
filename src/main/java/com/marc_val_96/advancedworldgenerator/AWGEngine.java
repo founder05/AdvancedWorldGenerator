@@ -304,4 +304,5 @@ public abstract class AWGEngine {
      */
     public abstract NamedBinaryTag toNamedBinaryTag(String mojangson) throws InvalidConfigException;
 
+    public abstract LocalMaterialData toLocalMaterialData(DefaultMaterial defaultMaterial);
 }

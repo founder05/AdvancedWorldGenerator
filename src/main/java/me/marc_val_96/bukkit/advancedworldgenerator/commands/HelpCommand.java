@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HelpCommand extends BaseCommand {
-    public HelpCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public HelpCommand(AWGPlugin awgPlugin) {
+        super(awgPlugin);
         name = "help";
         perm = AWGPerm.CMD_HELP.node;
         usage = "help";

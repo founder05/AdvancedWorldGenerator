@@ -11,7 +11,7 @@ import org.bukkit.generator.BlockPopulator;
 import java.util.Random;
 
 public class AWGBlockPopulator extends BlockPopulator {
-    private ObjectSpawner spawner;
+    private final ObjectSpawner spawner;
 
     public AWGBlockPopulator(BukkitWorld world) {
         this.spawner = new ObjectSpawner(world.getConfigs(), world);

@@ -24,9 +24,8 @@ public abstract class BaseCommand {
     public boolean workOnConsole;
     protected AWGPlugin plugin;
 
-
-    public BaseCommand(AWGPlugin _plugin) {
-        this.plugin = _plugin;
+    public BaseCommand(AWGPlugin awgPlugin) {
+        this.plugin = awgPlugin;
     }
 
     public abstract boolean onCommand(CommandSender sender, List<String> args);

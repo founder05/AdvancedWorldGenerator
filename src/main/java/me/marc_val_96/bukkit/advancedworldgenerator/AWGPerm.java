@@ -12,6 +12,6 @@ public enum AWGPerm {
     public final String node;
 
     AWGPerm(final String permissionNode) {
-        this.node = "tc." + permissionNode;
+        this.node = "awg." + permissionNode;
     }
 }
