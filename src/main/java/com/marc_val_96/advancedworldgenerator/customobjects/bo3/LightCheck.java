@@ -1,0 +1,60 @@
+package com.marc_val_96.advancedworldgenerator.customobjects.bo3;
+
+import com.marc_val_96.advancedworldgenerator.LocalWorld;
+import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
+
+import java.util.List;
+
+/**
+ *
+ */
+public class LightCheck extends BO3Check {
+
+    /**
+     * The minimum Light level, inclusive
+     */
+    public int minLightLevel;
+    /**
+     * The maximum Light level, inclusive
+     */
+    public int maxLightLevel;
+
+    public LightCheck(BO3Config config, List<String> args) throws InvalidConfigException {
+        super(config);
+        assureSize(5, args);
+        x = readInt(args.get(0), -100, 100);
+        y = readInt(args.get(1), -100, 100);
+        z = readInt(args.get(2), -100, 100);
+        minLightLevel = readInt(args.get(3), 0, 16);
+        maxLightLevel = readInt(args.get(4), minLightLevel, 16);
+    }
+
+    private LightCheck(BO3Config config) {
+        super(config);
+    }
+
+    @Override
+    public boolean preventsSpawn(LocalWorld world, int x, int y, int z) {
+        int lightLevel = world.getLightLevel(x, y, z);
+        // Out of bounds
+        return lightLevel < minLightLevel || lightLevel > maxLightLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "LightCheck(" + x + ',' + y + ',' + z + ',' + minLightLevel + ',' + maxLightLevel + ')';
+    }
+
+    @Override
+    public BO3Check rotate() {
+        LightCheck rotatedCheck = new LightCheck(getHolder());
+        rotatedCheck.x = z;
+        rotatedCheck.y = y;
+        rotatedCheck.z = -x;
+        rotatedCheck.minLightLevel = minLightLevel;
+        rotatedCheck.maxLightLevel = maxLightLevel;
+
+        return rotatedCheck;
+    }
+
+}
