@@ -36,9 +36,9 @@ public class AWGMineshaftGen extends StructureGenerator {
     }
 
     @Override
-    public BlockPosition getNearestGeneratedFeature(World var1, BlockPosition var2, boolean var3) {
-        int var5 = var2.getX() >> 4;
-        int var6 = var2.getZ() >> 4;
+    public BlockPosition getNearestGeneratedFeature(World world, BlockPosition blockPosition, boolean var3) {
+        int var5 = blockPosition.getX() >> 4;
+        int var6 = blockPosition.getZ() >> 4;
 
         for (int var7 = 0; var7 <= 1000; ++var7) {
             for (int var8 = -var7; var8 <= var7; ++var8) {
@@ -49,9 +49,9 @@ public class AWGMineshaftGen extends StructureGenerator {
                     if (var9 || var11) {
                         int var12 = var5 + var8;
                         int var13 = var6 + var10;
-                        this.f.setSeed(var12 ^ var13 ^ var1.getSeed());
+                        this.f.setSeed(var12 ^ var13 ^ world.getSeed());
                         this.f.nextInt();
-                        if (this.a(var12, var13) && (!var3 || !var1.b(var12, var13))) {
+                        if (this.a(var12, var13) && (!var3 || !world.b(var12, var13))) {
                             return new BlockPosition((var12 << 4) + 8, 64, (var13 << 4) + 8);
                         }
                     }

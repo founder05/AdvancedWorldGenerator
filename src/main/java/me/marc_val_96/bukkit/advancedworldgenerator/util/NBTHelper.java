@@ -153,8 +153,6 @@ public class NBTHelper {
         NamedBinaryTag[] childTags = (NamedBinaryTag[]) compoundTag.getValue();
         for (NamedBinaryTag tag : childTags) {
             switch (tag.getType()) {
-                case TAG_End:
-                    break;
                 case TAG_Byte:
                 case TAG_Short:
                 case TAG_Int:
@@ -191,8 +189,6 @@ public class NBTHelper {
         NamedBinaryTag[] childTags = (NamedBinaryTag[]) listTag.getValue();
         for (NamedBinaryTag tag : childTags) {
             switch (tag.getType()) {
-                case TAG_End:
-                    break;
                 case TAG_Byte:
                 case TAG_Short:
                 case TAG_Int:

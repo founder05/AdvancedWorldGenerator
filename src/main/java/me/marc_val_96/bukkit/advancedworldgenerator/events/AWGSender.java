@@ -17,8 +17,8 @@ public class AWGSender {
 
     private AWGPlugin plugin;
 
-    public AWGSender(AWGPlugin plugin) {
-        this.plugin = plugin;
+    public AWGSender(AWGPlugin awgPlugin) {
+        this.plugin = awgPlugin;
     }
 
     public void send(Player player) {

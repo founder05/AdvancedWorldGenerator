@@ -13,8 +13,8 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class CheckCommand extends BaseCommand {
-    public CheckCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public CheckCommand(AWGPlugin awgPlugin) {
+        super(awgPlugin);
         name = "check";
         perm = AWGPerm.CMD_CHECK.node;
         usage = "check World_Name";

@@ -12,8 +12,8 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class MapCommand extends BaseCommand {
-    public MapCommand(AWGPlugin _plugin) {
-        super(_plugin);
+    public MapCommand(AWGPlugin awgPlugin) {
+        super(awgPlugin);
         name = "map";
         perm = AWGPerm.CMD_MAP.node;
         usage = "map [World] [-s size] [-r rotate_angle] [-o offsetX offsetZ] [-l (add coordinate label to filename)]";
@@ -87,7 +87,6 @@ public class MapCommand extends BaseCommand {
                 label = "[" + offsetX + "_" + offsetZ + "]";
             }
         }
-
 
         MapWriter map = new MapWriter(world.getHandle(), size, angle, sender, offsetX, offsetZ, label);
 

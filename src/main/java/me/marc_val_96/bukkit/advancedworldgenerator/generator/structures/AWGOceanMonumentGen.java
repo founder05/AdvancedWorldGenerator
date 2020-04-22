@@ -98,5 +98,4 @@ public class AWGOceanMonumentGen extends StructureGenerator {
     protected StructureStart b(int i, int j) {
         return new WorldGenMonumentStart(this.g, this.f, i, j);
     }
-
 }

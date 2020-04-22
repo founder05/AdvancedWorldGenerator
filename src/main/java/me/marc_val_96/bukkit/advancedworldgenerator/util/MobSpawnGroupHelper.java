@@ -93,7 +93,7 @@ public final class MobSpawnGroupHelper {
      * @return The WeightedMobSpawnGroup list.
      */
     static List<WeightedMobSpawnGroup> fromMinecraftList(Collection<BiomeMeta> biomeMetas) {
-        List<WeightedMobSpawnGroup> result = new ArrayList<WeightedMobSpawnGroup>();
+        List<WeightedMobSpawnGroup> result = new ArrayList<>();
         for (BiomeMeta meta : biomeMetas) {
             result.add(fromMinecraftGroup(meta));
         }
@@ -108,7 +108,7 @@ public final class MobSpawnGroupHelper {
      * @return The BiomeMeta list.
      */
     public static List<BiomeMeta> toMinecraftlist(Collection<WeightedMobSpawnGroup> weightedMobSpawnGroups) {
-        List<BiomeMeta> biomeList = new ArrayList<BiomeMeta>();
+        List<BiomeMeta> biomeList = new ArrayList<>();
         for (WeightedMobSpawnGroup mobGroup : weightedMobSpawnGroups) {
             Class<? extends EntityInsentient> entityClass = toMinecraftClass(mobGroup.getInternalName());
             if (entityClass != null) {
