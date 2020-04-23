@@ -3,79 +3,77 @@ package com.marc_val_96.advancedworldgenerator.util.minecraftTypes;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Contains a lot of alternative mob names. The implementation should support
  * this names, along with the other names that are available on the current
  * platform.
  */
-public enum MobNames {
-    BAT("bat", "Bat"),
-    BLAZE("blaze", "Blaze"),
-    CAVE_SPIDER("cave_spider", "CaveSpider", "cavespider"),
-    CHICKEN("chicken", "Chicken"),
-    COW("cow", "Cow"),
-    CREEPER("creeper", "Creeper"),
-    DONKEY("donkey", "Donkey"),
-    ELDER_GUARDIAN("elder_guardian", "ElderGuardian", "elderguardian"),
-    ENDER_DRAGON("ender_dragon", "EnderDragon", "enderdragon"),
-    ENDERMAN("enderman", "Enderman", "ender_man", "EnderMan"),
-    ENDERMITE("endermite", "Endermite", "ender_mite", "EnderMite"),
-    EVOKER("evocation_illager", "EvocationIllager", "evocationillager", "Evoker", "evoker"),
-    GHAST("ghast", "Ghast"),
-    GIANT("giant", "Giant", "giantzombie", "zombiegiant"),
-    GUARDIAN("guardian", "Guardian"),
-    HORSE("horse", "EntityHorse", "Horse"),
-    HUSK("husk", "Husk"),
-    ILLUSIONER("illusion_illager", "IllusionIllager", "illusionillager", "Illusioner", "illusioner"),
-    IRON_GOLEM("villager_golem", "VillagerGolem", "villagergolem", "IronGolem", "irongolem", "iron_golem"),
-    LLAMA("llama", "Llama", "LLama"),
-    MAGMA_CUBE("magma_cube", "LavaSlime", "lavaslime", "lava_slime", "magmacube"),
-    MULE("mule", "Mule"),
-    MUSHROOM_COW("mooshroom", "MushroomCow", "mushroomcow", "shroom", "moshoom", "mcow", "shroomcow"),
-    OCELOT("ocelot", "Ozelot", "ozelot", "Ocelot"),
-    PARROT("parrot", "Parrot"),
-    PIG("pig", "Pig"),
-    PIG_ZOMBIE("zombie_pigman", "ZombiePigman", "zombiepigman", "PigZombie", "pigzombie", "pig_zombie"),
-    POLAR_BEAR("polar_bear", "PolarBear", "polarbear"),
-    RABBIT("rabbit", "Rabbit"),
-    SHEEP("sheep", "Sheep"),
-    SILVERFISH("silverfish", "Silverfish", "silver_fish"),
-    SHULKER("shulker", "Shulker"),
-    SKELETON("skeleton", "Skeleton"),
-    SKELETON_HORSE("skeleton_horse", "SkeletonHorse", "skeletonhorse"),
-    SLIME("slime", "Slime"),
-    SNOWMAN("snowman", "Snowman", "SnowMan", "snow_man"),
-    SPIDER("spider", "Spider"),
-    SQUID("squid", "Squid"),
-    STRAY("stray", "Stray"),
-    VEX("vex", "Vex"),
-    VINDICATOR("vindication_illager", "Vindicator", "vindicator"),
-    VILLAGER("villager", "Villager"),
-    WITCH("witch", "Witch"),
-    WITHER("wither", "WitherBoss", "witherboss", "wither_boss", "Wither"),
-    WITHER_SKELETON("wither_skeleton", "WitherSkeleton", "witherskeleton"),
-    WOLF("wolf", "Wolf"),
-    ZOMBIE("zombie", "Zombie"),
-    ZOMBIE_HORSE("zombie_horse", "ZombieHorse", "zombiehorse"),
-    ZOMBIE_VILLAGER("zombie_villager", "ZombieVillager", "zombievillager");
+public enum MobNames
+{
+    //See: net.minecraft.entity.EntityList for internal mob names list
+    BAT("bat", "bat"),
+    BLAZE("blaze", "blaze"),
+    CAVE_SPIDER("cave_spider", "cavespider"),
+    CHICKEN("chicken", "chicken"),
+    COW("cow", "cow"),
+    CREEPER("creeper", "creeper"),
+    DONKEY("donkey", "donkey"),
+    ELDER_GUARDIAN("elder_guardian", "elderguardian"),
+    ENDER_DRAGON("ender_dragon", "enderdragon"),
+    ENDERMAN("enderman", "enderman"),
+    ENDERMITE("endermite", "endermite"),
+    EVOCATION_ILLAGER("evocation_illager", "evocationillager", "evoker"),
+    GHAST("ghast", "ghast"),
+    GIANT("giant", "giant", "giantzombie", "zombiegiant"),
+    GUARDIAN("guardian", "guardian"),
+    HORSE("horse", "horse"),
+    HUSK("husk", "husk"),
+    LLAMA("llama", "llama"),
+    MAGMA_CUBE("magma_cube", "magmaslime", "lavaslime", "magmacube"),
+    MULE("mule", "mule"),
+    MOOSHROOM("mooshroom", "mushroomcow", "mooshroom"),
+    OCELOT("ocelot", "ozelot", "ocelot"),
+    PIG("pig", "pig"),
+    POLAR_BEAR("polar_bear", "polarbear"),
+    PILLAGER("pillager", "Pillager"),
+    RABBIT("rabbit", "rabbit"),
+    BEE("bee","Bee"),
+    SHEEP("sheep", "sheep"),
+    SHULKER("shulker", "shulker"),
+    SILVERFISH("silverfish", "silverfish"),
+    SKELETON("skeleton", "skeleton"),
+    SKELETON_HORSE("skeleton_horse", "skeletonhorse"),
+    SLIME("slime", "slime"),
+    SNOWMAN("snowman", "snowman"),
+    SPIDER("spider", "spider"),
+    SQUID("squid", "squid"),
+    STRAY("stray", "stray"),
+    VEX("vex", "vex"),
+    VILLAGER("villager", "villager"),
+    VILLAGER_GOLEM("villager_golem", "villagergolem", "irongolem"),
+    VINDICATION_ILLAGER("vindication_illager", "vindicationillager", "vindicator"),
+    WITCH("witch", "witch"),
+    WITHER("wither", "witherboss", "wither"),
+    WITHER_SKELETON("wither_skeleton", "witherskeleton"),
+    WOLF("wolf", "wolf"),
+    ZOMBIE("zombie", "zombie"),
+    ZOMBIE_HORSE("zombie_horse", "zombiehorse"),
+    ZOMBIE_PIGMAN("zombie_pigman", "zombiepigman", "pig_zombie", "pigzombie"),
+    ZOMBIE_VILLAGER("zombie_villager", "zombievillager");
 
     // Contains all aliases (alias, internalName)
-    private static Map<String, String> mobAliases = new HashMap<String, String>();
+    private static final Map<String, String> MobAliases = new HashMap<>();
 
     // Auto-register all aliases in the enum
-    static {
-        for (MobNames alt : MobNames.values()) {
+    static
+    {
+        for (MobNames alt : MobNames.values())
+        {
             register(alt.internalMinecraftName, alt.aliases);
         }
-    }
-
-    private String[] aliases;
-    private String internalMinecraftName;
-
-
-    MobNames(String internalMinecraftName, String... aliases) {
-        this.internalMinecraftName = internalMinecraftName;
-        this.aliases = aliases;
     }
 
     /**
@@ -85,9 +83,14 @@ public enum MobNames {
      * @param alias The alias.
      * @return The internal name, or if it can't be found, the alias.
      */
-    public static String toInternalName(String alias) {
-        if (mobAliases.containsKey(alias)) {
-            return mobAliases.get(alias);
+    public static String toInternalName(String alias)
+    {
+        for(String key : MobAliases.keySet())
+        {
+            if(key.toLowerCase().trim().replace("entity","").replace("_","").equals(alias.toLowerCase().trim().replace("entity","").replace("_","")))
+            {
+                return MobAliases.get(key);
+            }
         }
         return alias;
     }
@@ -98,18 +101,29 @@ public enum MobNames {
      * @param internalMinecraftName The internal Minecraft mob id, for example Ozelot
      * @param aliases               The alias, for example Ocelot
      */
-    private static void register(String internalMinecraftName, String... aliases) {
-        for (String alias : aliases) {
-            mobAliases.put(alias, internalMinecraftName);
+    private static void register(String internalMinecraftName, String... aliases)
+    {
+        for (String alias : aliases)
+        {
+            MobAliases.put(alias, internalMinecraftName);
         }
+    }
+
+    private final String[] aliases;
+    private final String internalMinecraftName;
+
+    MobNames(String internalMinecraftName, String... aliases)
+    {
+        this.internalMinecraftName = internalMinecraftName;
+        this.aliases = aliases;
     }
 
     /**
      * Gets the internal Minecraft name of this mob.
-     *
      * @return The internal Minecraft name.
      */
-    public String getInternalName() {
+    public String getInternalName()
+    {
         return this.internalMinecraftName;
     }
 }
