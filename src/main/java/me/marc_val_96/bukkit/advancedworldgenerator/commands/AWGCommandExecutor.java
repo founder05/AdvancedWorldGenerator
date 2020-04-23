@@ -5,12 +5,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import me.marc_val_96.bukkit.advancedworldgenerator.AWGPlugin;
+import me.marc_val_96.bukkit.advancedworldgenerator.commands.runnable.ImportCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class AWGCommandExecutor implements CommandExecutor {
+public final class AWGCommandExecutor implements CommandExecutor {
     protected final AWGPlugin plugin;
     protected HashMap<String, BaseCommand> commandHashMap = new HashMap<>();
     protected HelpCommand helpCommand;
@@ -43,6 +44,9 @@ public class AWGCommandExecutor implements CommandExecutor {
         this.addCommand(new CheckCommand(plugin));
         this.addCommand(new BiomeCommand(plugin));
         this.addCommand(new MapCommand(plugin));
+        this.addCommand(new SelectionCommand(plugin));
+        this.addCommand(new ImportCommand(plugin));
+        this.addCommand(new TPCommand(plugin));
         this.addCommand(this.helpCommand);
     }
 

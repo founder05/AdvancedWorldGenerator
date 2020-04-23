@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCommand extends BaseCommand {
+public final class ListCommand extends BaseCommand {
     public ListCommand(AWGPlugin plugin) {
         super(plugin);
         name = "list";

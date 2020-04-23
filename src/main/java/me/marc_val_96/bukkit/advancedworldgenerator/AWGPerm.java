@@ -7,7 +7,11 @@ public enum AWGPerm {
     CMD_LIST("cmd.list"),
     CMD_MAP("cmd.map"),
     CMD_RELOAD("cmd.reload"),
-    CMD_SPAWN("cmd.spawn");
+    CMD_SPAWN("cmd.spawn"),
+    CMD_EXPORT("cmd.export"),
+    CMD_SELECTION("cmd.selection"),
+    CMD_TP("cmd.tp");
+
 
     public final String node;
 

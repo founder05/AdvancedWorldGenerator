@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class MapCommand extends BaseCommand {
+public final class MapCommand extends BaseCommand {
     public MapCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);
         name = "map";

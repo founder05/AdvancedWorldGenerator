@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelpCommand extends BaseCommand {
+public final class HelpCommand extends BaseCommand {
     public HelpCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);
         name = "help";
@@ -18,7 +18,7 @@ public class HelpCommand extends BaseCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, List<String> args) {
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         for (BaseCommand command : plugin.commandExecutor.commandHashMap.values()) {
             lines.add(MESSAGE_COLOR + "/awg " + command.usage + " - " + command.getHelp());
         }

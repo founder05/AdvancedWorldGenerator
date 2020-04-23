@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ReloadCommand extends BaseCommand {
+public final class ReloadCommand extends BaseCommand {
 
     public ReloadCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);

@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class BiomeCommand extends BaseCommand {
+public final class BiomeCommand extends BaseCommand {
     public BiomeCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);
         name = "biome";

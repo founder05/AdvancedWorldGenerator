@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class CheckCommand extends BaseCommand {
+public final class CheckCommand extends BaseCommand {
     public CheckCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);
         name = "check";
