@@ -17,7 +17,7 @@ public final class BiomeCommand extends BaseCommand {
         name = "biome";
         perm = AWGPerm.CMD_BIOME.node;
         usage = "biome [-f] [-s]";
-        workOnConsole = false;
+        worksFromConsole = false;
     }
 
     @Override

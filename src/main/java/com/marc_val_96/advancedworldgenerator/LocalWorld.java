@@ -350,6 +350,4 @@ public interface LocalWorld {
      * @param metaOrNull Extra meta information for the entity. Position, rotation and id will be ignored.
      */
     void spawnEntity(String id, float x, float y, float z, int amount, NamedBinaryTag metaOrNull);
-
-    public int getHighestBlockAboveYAt(int x, int z, ChunkCoordinate chunkBeingPopulated);
 }

@@ -17,7 +17,7 @@ public final class ReloadCommand extends BaseCommand {
         name = "reload";
         perm = AWGPerm.CMD_RELOAD.node;
         usage = "reload [world_name]";
-        workOnConsole = true;
+        worksFromConsole = true;
     }
 
     @Override

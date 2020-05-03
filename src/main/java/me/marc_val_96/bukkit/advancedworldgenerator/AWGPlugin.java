@@ -6,12 +6,19 @@ import com.marc_val_96.advancedworldgenerator.configuration.standard.PluginStand
 import com.marc_val_96.advancedworldgenerator.generator.biome.VanillaBiomeGenerator;
 import com.marc_val_96.advancedworldgenerator.logging.LogMarker;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.StructureNames;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import me.marc_val_96.bukkit.advancedworldgenerator.commands.AWGCommandExecutor;
 import me.marc_val_96.bukkit.advancedworldgenerator.events.AWGListener;
 import me.marc_val_96.bukkit.advancedworldgenerator.generator.AWGChunkGenerator;
 import me.marc_val_96.bukkit.advancedworldgenerator.generator.BukkitVanillaBiomeGenerator;
 import me.marc_val_96.bukkit.advancedworldgenerator.generator.structures.AWGRareBuildingGen;
 import me.marc_val_96.bukkit.advancedworldgenerator.generator.structures.AWGVillageGen;
+import me.marc_val_96.bukkit.advancedworldgenerator.selection.TridimensionalSelection;
 import net.minecraft.server.v1_12_R1.WorldGenFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -20,15 +27,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-
 public final class AWGPlugin extends JavaPlugin {
 
-    public final HashMap<String, BukkitWorld> worlds = new HashMap<String, BukkitWorld>();
-    private final HashMap<String, BukkitWorld> notInitedWorlds = new HashMap<String, BukkitWorld>();
+    public final HashMap<String, BukkitWorld> worlds = new HashMap<>();
+    private final HashMap<String, BukkitWorld> notInitiatedWorlds = new HashMap<>();
+    private final Map<UUID, TridimensionalSelection> playersSelections = new HashMap<>();
     public AWGListener listener;
     public AWGCommandExecutor commandExecutor;
     /*
@@ -46,6 +49,7 @@ public final class AWGPlugin extends JavaPlugin {
                 world.disable();
             }
             worlds.clear();
+            playersSelections.clear();
             AWG.stopEngine();
         }
     }
@@ -119,7 +123,7 @@ public final class AWGPlugin extends JavaPlugin {
         localWorld.setSettings(configs);
 
         // Add the world to the to-do list
-        this.notInitedWorlds.put(worldName, localWorld);
+        this.notInitiatedWorlds.put(worldName, localWorld);
 
         // Get the right chunk generator
         AWGChunkGenerator generator = null;
@@ -149,9 +153,9 @@ public final class AWGPlugin extends JavaPlugin {
     }
 
     public void onWorldInit(World world) {
-        if (this.notInitedWorlds.containsKey(world.getName())) {
+        if (this.notInitiatedWorlds.containsKey(world.getName())) {
             // Remove the world from the to-do list
-            BukkitWorld bukkitWorld = this.notInitedWorlds.remove(world.getName());
+            BukkitWorld bukkitWorld = this.notInitiatedWorlds.remove(world.getName());
 
             // Enable and register the world
             bukkitWorld.enable(world);
@@ -164,7 +168,7 @@ public final class AWGPlugin extends JavaPlugin {
 
     public void onWorldUnload(World world) {
         // Remove the world from the to-do list
-        this.notInitedWorlds.remove(world.getName());
+        this.notInitiatedWorlds.remove(world.getName());
         if (this.worlds.containsKey(world.getName())) {
             // Disable and Remove the world from enabled list
             this.worlds.get(world.getName()).disable();
@@ -174,4 +178,7 @@ public final class AWGPlugin extends JavaPlugin {
         AWG.log(LogMarker.INFO, "World {} is now unloaded!", world.getName());
     }
 
+    public Map<UUID, TridimensionalSelection> getPlayersSelections() {
+        return playersSelections;
+    }
 }

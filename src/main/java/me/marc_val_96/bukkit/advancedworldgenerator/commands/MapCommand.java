@@ -17,7 +17,7 @@ public final class MapCommand extends BaseCommand {
         name = "map";
         perm = AWGPerm.CMD_MAP.node;
         usage = "map [World] [-s size] [-r rotate_angle] [-o offsetX offsetZ] [-l (add coordinate label to filename)]";
-        workOnConsole = true;
+        worksFromConsole = true;
     }
 
     @Override

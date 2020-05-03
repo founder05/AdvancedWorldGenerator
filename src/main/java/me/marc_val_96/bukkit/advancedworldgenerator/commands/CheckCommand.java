@@ -18,7 +18,7 @@ public final class CheckCommand extends BaseCommand {
         name = "check";
         perm = AWGPerm.CMD_CHECK.node;
         usage = "check World_Name";
-        workOnConsole = true;
+        worksFromConsole = true;
     }
 
     @Override

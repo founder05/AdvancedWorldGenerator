@@ -10,29 +10,26 @@ import java.util.List;
 public final class HelpCommand extends BaseCommand {
     public HelpCommand(AWGPlugin awgPlugin) {
         super(awgPlugin);
-        name = "help";
-        perm = AWGPerm.CMD_HELP.node;
-        usage = "help";
-        workOnConsole = false;
+        super.name = "help";
+        super.perm = AWGPerm.CMD_HELP.node;
+        super.usage = "help";
+        super.worksFromConsole = false;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, List<String> args) {
         List<String> lines = new ArrayList<>();
-        for (BaseCommand command : plugin.commandExecutor.commandHashMap.values()) {
-            lines.add(MESSAGE_COLOR + "/awg " + command.usage + " - " + command.getHelp());
-        }
+        plugin.commandExecutor.commandHashMap.values().forEach(cmd -> lines.add(MESSAGE_COLOR + "/awg " + cmd.usage + " - " + cmd.getHelp()));
 
         int page = 1;
-        if (args.size() > 0) {
-            try {
+        try {
+            if (!args.isEmpty())
                 page = Integer.parseInt(args.get(0));
-            } catch (NumberFormatException e) {
-                sender.sendMessage(ERROR_COLOR + "Wrong page number " + args.get(0));
-            }
+        } catch (NumberFormatException e) {
+            sender.sendMessage(ERROR_COLOR + "Wrong page number " + args.get(0));
         }
 
-        this.ListMessage(sender, lines, page, "Available commands");
+        this.listMessages(sender, lines, page, "Available commands");
         return true;
     }
 }

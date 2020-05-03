@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import me.marc_val_96.bukkit.advancedworldgenerator.AWGPlugin;
-import me.marc_val_96.bukkit.advancedworldgenerator.commands.runnable.ImportCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,15 +38,14 @@ public final class AWGCommandExecutor implements CommandExecutor {
     }
 
     private void registerCommands() {
-        this.addCommand(new ReloadCommand(plugin));
-        this.addCommand(new ListCommand(plugin));
-        this.addCommand(new CheckCommand(plugin));
-        this.addCommand(new BiomeCommand(plugin));
-        this.addCommand(new MapCommand(plugin));
-        this.addCommand(new SelectionCommand(plugin));
-        this.addCommand(new ImportCommand(plugin));
-        this.addCommand(new TPCommand(plugin));
-        this.addCommand(this.helpCommand);
+        addCommand(new ReloadCommand(plugin));
+        addCommand(new ListCommand(plugin));
+        addCommand(new CheckCommand(plugin));
+        addCommand(new BiomeCommand(plugin));
+        addCommand(new MapCommand(plugin));
+        addCommand(helpCommand);
+        addCommand(new SelectionCommand(plugin, plugin.getPlayersSelections()));
+        addCommand(new ExportCommand(plugin));
     }
 
     private void addCommand(BaseCommand command) {

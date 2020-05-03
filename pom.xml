@@ -6,7 +6,7 @@
 
     <groupId>me.marc_val_96</groupId>
     <artifactId>AdvancedWorldGenerator</artifactId>
-    <version>1.4.0</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <name>AdvancedWorldGenerator</name>

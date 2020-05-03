@@ -17,7 +17,7 @@ public final class ListCommand extends BaseCommand {
         name = "list";
         perm = AWGPerm.CMD_LIST.node;
         usage = "list [-w World] [page]";
-        workOnConsole = false;
+        worksFromConsole = false;
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class ListCommand extends BaseCommand {
                     pluginList.add(VALUE_COLOR + object.getName());
                 }
 
-                this.ListMessage(sender, pluginList, page, "World objects");
+                this.listMessages(sender, pluginList, page, "World objects");
 
             } else
                 sender.sendMessage(ERROR_COLOR + "World not found " + worldName);
@@ -72,7 +72,7 @@ public final class ListCommand extends BaseCommand {
             }
         }
 
-        this.ListMessage(sender, pluginList, page, "Global objects", "Use /awg list -w [world] for world objects");
+        this.listMessages(sender, pluginList, page, "Global objects", "Use /awg list -w [world] for world objects");
 
         return true;
 

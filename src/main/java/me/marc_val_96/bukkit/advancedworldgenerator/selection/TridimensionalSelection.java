@@ -3,25 +3,28 @@ package me.marc_val_96.bukkit.advancedworldgenerator.selection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import static me.marc_val_96.bukkit.advancedworldgenerator.commands.BaseCommand.ERROR_COLOR;
+import me.marc_val_96.bukkit.advancedworldgenerator.commands.BaseCommand;
 import me.thevipershow.geomvectorlib.pairs.GenericPair;
 import me.thevipershow.geomvectorlib.triples.GenericTriple;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import static org.bukkit.Material.*;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public final class TridimensionalSelection implements SelectionCalculator {
     private final UUID sender;
+    private final String playerName;
     private final SelectionOptions selectionOptions;
     private GenericTriple<Integer, Integer, Integer> firstPosition, secondPosition;
+    private World world;
     private final Set<GenericPair<GenericTriple<Integer, Integer, Integer>, Material>> selection = new HashSet<>();
 
-    public TridimensionalSelection(UUID sender, SelectionOptions selectionOptions) {
-        this.sender = sender;
+    public TridimensionalSelection(final Player sender,final SelectionOptions selectionOptions,final World world) {
+        this.sender = sender.getUniqueId();
+        this.playerName = sender.getName();
         this.selectionOptions = selectionOptions;
+        this.world = world;
     }
 
     public final UUID getSender() {
@@ -49,11 +52,12 @@ public final class TridimensionalSelection implements SelectionCalculator {
     }
 
     private boolean toAdd(Material toAdd) {
-        return ((selectionOptions.isAir() && toAdd == AIR)
-                || (selectionOptions.isLava() && (toAdd == LAVA || toAdd == STATIONARY_LAVA))
-                || (selectionOptions.isWater() && (toAdd == WATER || toAdd == STATIONARY_WATER)));
+        return ((selectionOptions.isAir() && toAdd == Material.AIR)
+                || (selectionOptions.isLava() && (toAdd == Material.LAVA || toAdd == Material.STATIONARY_LAVA))
+                || (selectionOptions.isWater() && (toAdd == Material.WATER || toAdd == Material.STATIONARY_WATER)));
     }
 
+    @SuppressWarnings("ConstantConditions")
     private Set<GenericPair<GenericTriple<Integer, Integer, Integer>, Material>> calculate(final World world, final GenericTriple<Integer, Integer, Integer> firstPosition, final GenericTriple<Integer, Integer, Integer> secondPosition) {
         final Set<GenericPair<GenericTriple<Integer, Integer, Integer>, Material>> selection = new HashSet<>();
         final int x1, x2, y1, y2, z1, z2;
@@ -63,12 +67,12 @@ public final class TridimensionalSelection implements SelectionCalculator {
         y2 = secondPosition.getSecond();
         z1 = firstPosition.getThird();
         z2 = secondPosition.getThird();
-        final int highestYPoint = Math.max(firstPosition.getSecond(), secondPosition.getSecond());
-        final int lowestYPoint = highestYPoint == firstPosition.getSecond() ? secondPosition.getSecond() : firstPosition.getSecond();
-        final int highestXPoint = Math.max(firstPosition.getFirst(), secondPosition.getFirst());
-        final int lowestXPoint = highestXPoint == firstPosition.getFirst() ? secondPosition.getFirst() : firstPosition.getFirst();
-        final int highestZPoint = Math.max(firstPosition.getThird(), secondPosition.getThird());
-        final int lowestZPoint = highestZPoint == firstPosition.getThird() ? secondPosition.getThird() : firstPosition.getThird();
+        final int highestYPoint = SelectionUtils.max(firstPosition, secondPosition, SelectionUtils.PositionTriple.SECOND);
+        final int lowestYPoint = SelectionUtils.min(firstPosition, secondPosition, SelectionUtils.PositionTriple.SECOND);
+        final int highestXPoint = SelectionUtils.max(firstPosition, secondPosition, SelectionUtils.PositionTriple.FIRST);
+        final int lowestXPoint = SelectionUtils.min(firstPosition, secondPosition, SelectionUtils.PositionTriple.FIRST);
+        final int highestZPoint = SelectionUtils.max(firstPosition, secondPosition, SelectionUtils.PositionTriple.THIRD);
+        final int lowestZPoint = SelectionUtils.min(firstPosition, secondPosition, SelectionUtils.PositionTriple.THIRD);
         for (int y = highestYPoint; y <= lowestYPoint; y--) {
             for (int x = lowestXPoint; x <= highestXPoint; x++) {
                 for (int z = lowestZPoint; z <= highestZPoint; z++) {
@@ -87,10 +91,11 @@ public final class TridimensionalSelection implements SelectionCalculator {
     public final Set<GenericPair<GenericTriple<Integer, Integer, Integer>, Material>> calculateSelection(final World world, final GenericTriple<Integer, Integer, Integer> firstPosition, final GenericTriple<Integer, Integer, Integer> secondPosition) {
         if (firstPosition != null && secondPosition != null) {
             //TODO: return here
+            return calculate(world, firstPosition, secondPosition);
         } else {
             final Player player = Bukkit.getPlayer(sender);
             if (player != null) {
-                player.sendMessage(ERROR_COLOR + "Invalid selection!");
+                player.sendMessage(BaseCommand.ERROR_COLOR + "Invalid selection!");
             }
         }
         return selection;
@@ -99,5 +104,17 @@ public final class TridimensionalSelection implements SelectionCalculator {
     @Override
     public final void clearSelection() {
         selection.clear();
+    }
+
+    public final World getWorld() {
+        return world;
+    }
+
+    public final void setWorld(World world) {
+        this.world = world;
+    }
+
+    public final String getPlayerName() {
+        return playerName;
     }
 }

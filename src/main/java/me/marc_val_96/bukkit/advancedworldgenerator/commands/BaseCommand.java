@@ -21,7 +21,7 @@ public abstract class BaseCommand {
     public String name;
     public String perm;
     public String usage;
-    public boolean workOnConsole;
+    public boolean worksFromConsole;
     protected AWGPlugin plugin;
 
     public BaseCommand(AWGPlugin awgPlugin) {
@@ -56,7 +56,7 @@ public abstract class BaseCommand {
         return null;
     }
 
-    protected void ListMessage(CommandSender sender, List<String> lines, int page, String... headers) {
+    protected void listMessages(CommandSender sender, List<String> lines, int page, String... headers) {
         int pageCount = (lines.size() >> 3) + 1;
         if (page > pageCount) {
             page = pageCount;
