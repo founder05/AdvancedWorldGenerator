@@ -14,7 +14,7 @@ import net.minecraft.server.v1_12_R1.MojangsonParser;
 
 import java.io.File;
 
-public class BukkitEngine extends AWGEngine {
+public abstract class BukkitEngine extends AWGEngine {
 
     private final AWGPlugin plugin;
 
