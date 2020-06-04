@@ -85,7 +85,11 @@
             <artifactId>Craftbukkit</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>system</scope>
+<<<<<<< HEAD
             <systemPath>${project.basedir}/lib/craftbukkit-1.12.2.jar</systemPath>
+=======
+            <systemPath>${project.basedir}/lib/craftbukkit.jar</systemPath>
+>>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
         </dependency>
     </dependencies>
 </project>

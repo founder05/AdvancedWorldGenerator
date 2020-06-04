@@ -1,6 +1,10 @@
 package com.marc_val_96.advancedworldgenerator.util.minecraftTypes;
 
 import com.marc_val_96.advancedworldgenerator.configuration.BiomeLoadInstruction;
+<<<<<<< HEAD
+=======
+import com.marc_val_96.advancedworldgenerator.configuration.standard.MinecraftBiomeTemplates.*;
+>>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
 import com.marc_val_96.advancedworldgenerator.configuration.standard.MojangSettings;
 import com.marc_val_96.advancedworldgenerator.configuration.standard.StandardBiomeTemplate;
 import com.marc_val_96.advancedworldgenerator.logging.LogMarker;
@@ -129,8 +133,13 @@ public enum DefaultBiome
         }
         catch (Exception e)
         {
+<<<<<<< HEAD
             AWG.log(LogMarker.FATAL, "Failed to create default biome");
             AWG.printStackTrace(LogMarker.FATAL, e);
+=======
+            OTG.log(LogMarker.FATAL, "Failed to create default biome");
+            OTG.printStackTrace(LogMarker.FATAL, e);
+>>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
 
             // Use the standard settings for custom biomes
             return new BiomeLoadInstruction(Name, new StandardBiomeTemplate(maxWorldHeight));

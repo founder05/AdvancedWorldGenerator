@@ -2,6 +2,7 @@ package me.marc_val_96.bukkit.advancedworldgenerator;
 
 import com.marc_val_96.advancedworldgenerator.AWG;
 import com.marc_val_96.advancedworldgenerator.LocalMaterialData;
+import com.marc_val_96.advancedworldgenerator.LocalWorld;
 import com.marc_val_96.advancedworldgenerator.util.helpers.BlockHelper;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultMaterial;
 import net.minecraft.server.v1_12_R1.Block;
@@ -11,7 +12,7 @@ import net.minecraft.server.v1_12_R1.IBlockData;
 /**
  * Implementation of LocalMaterial that wraps one of Minecraft's Blocks.
  */
-public final class BukkitMaterialData implements LocalMaterialData {
+public abstract class BukkitMaterialData implements LocalMaterialData {
 
 
     private final int combinedBlockId;
@@ -28,7 +29,37 @@ public final class BukkitMaterialData implements LocalMaterialData {
      * @return The {@code BukkitMateialData} instance.
      */
     public static BukkitMaterialData ofIds(int id, int data) {
-        return new BukkitMaterialData(id, data);
+        return new BukkitMaterialData(id, data) {
+            @Override
+            public boolean isSmoothAreaAnchor(boolean allowWood, boolean ignoreWater) {
+                return false;
+            }
+
+            @Override
+            public boolean isEmptyOrAir() {
+                return false;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public LocalMaterialData rotate(int rotateTimes) {
+                return null;
+            }
+
+            @Override
+            public LocalMaterialData parseForWorld(LocalWorld world) {
+                return null;
+            }
+
+            @Override
+            public boolean isParsed() {
+                return false;
+            }
+        };
     }
 
     /**
@@ -61,7 +92,37 @@ public final class BukkitMaterialData implements LocalMaterialData {
      */
     public static BukkitMaterialData ofMinecraftBlockData(IBlockData blockData) {
         Block block = blockData.getBlock();
-        return new BukkitMaterialData(Block.getId(block), block.toLegacyData(blockData));
+        return new BukkitMaterialData(Block.getId(block), block.toLegacyData(blockData)) {
+            @Override
+            public boolean isSmoothAreaAnchor(boolean allowWood, boolean ignoreWater) {
+                return false;
+            }
+
+            @Override
+            public boolean isEmptyOrAir() {
+                return false;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public LocalMaterialData rotate(int rotateTimes) {
+                return null;
+            }
+
+            @Override
+            public LocalMaterialData parseForWorld(LocalWorld world) {
+                return null;
+            }
+
+            @Override
+            public boolean isParsed() {
+                return false;
+            }
+        };
     }
 
     @Override
@@ -81,12 +142,12 @@ public final class BukkitMaterialData implements LocalMaterialData {
         return combinedBlockId == other.combinedBlockId;
     }
 
-    @Override
+
     public byte getBlockData() {
         return (byte) (combinedBlockId & 15);
     }
 
-    @Override
+
     public int getBlockId() {
         return combinedBlockId >> 4;
     }
@@ -112,7 +173,7 @@ public final class BukkitMaterialData implements LocalMaterialData {
         return AWG.SUPPORTED_BLOCK_IDS + combinedBlockId;
     }
 
-    @Override
+
     public int hashCodeWithoutBlockData() {
         // From 0 to 4095 when there are 4096 block ids
         return getBlockId();
@@ -150,7 +211,6 @@ public final class BukkitMaterialData implements LocalMaterialData {
     }
 
     @SuppressWarnings("deprecation")
-    @Override
     public LocalMaterialData withBlockData(int i) {
         if (i == getBlockData()) {
             return this;
@@ -160,7 +220,6 @@ public final class BukkitMaterialData implements LocalMaterialData {
         return ofMinecraftBlockData(block.fromLegacyData(i));
     }
 
-    @Override
     public LocalMaterialData withDefaultBlockData() {
         Block block = Block.getById(getBlockId());
         byte defaultData = (byte) block.toLegacyData(block.getBlockData());
