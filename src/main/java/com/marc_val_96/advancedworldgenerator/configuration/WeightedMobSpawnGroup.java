@@ -7,33 +7,61 @@ import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.MobNames;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class holds data for a bukkit nms.BiomeMeta class. The name does not
  * match but ours make more sense.
  */
-public class WeightedMobSpawnGroup {
-    protected final String mob;
-    protected final int max;
-    protected final int weight;
-    protected final int min;
+public class WeightedMobSpawnGroup
+{
+    private final String mob;
+    private final int max;
+    private final int weight;
+    private final int min;
 
-    public WeightedMobSpawnGroup(String mobName, int weight, int min, int max) {
+    public WeightedMobSpawnGroup(String mobName, int weight, int min, int max)
+    {
         this.mob = mobName;
         this.weight = weight;
         this.min = min;
         this.max = max;
     }
 
-    public WeightedMobSpawnGroup(MobNames mobName, int weight, int min, int max) {
+    public WeightedMobSpawnGroup(MobNames mobName, int weight, int min, int max)
+    {
         this(mobName.getInternalName(), weight, min, max);
     }
 
-    public static List<WeightedMobSpawnGroup> fromJson(String originalJson) throws InvalidConfigException {
+    public String getInternalName()
+    {
+        return MobNames.toInternalName(this.getMob());
+    }
+
+    public int getWeight()
+    {
+        return this.weight;
+    }
+
+    public int getMin()
+    {
+        return this.min;
+    }
+
+    public int getMax()
+    {
+        return this.max;
+    }
+
+    public static List<WeightedMobSpawnGroup> fromJson(String originalJson) throws InvalidConfigException
+    {
         // Example: [{"mob": "Sheep", "weight": 12, "min": 4, "max": 4}]
         List<WeightedMobSpawnGroup> mobGroups = new ArrayList<WeightedMobSpawnGroup>();
 
         String json = originalJson.trim();
-        if (json.length() <= 2) {
+        if (json.length() <= 2)
+        {
             // Empty Json
             return mobGroups;
         }
@@ -49,14 +77,16 @@ public class WeightedMobSpawnGroup {
 
         String[] groups = StringHelper.readCommaSeperatedString(json);
 
-        for (String group : groups) {
+        for (String group : groups)
+        {
             mobGroups.add(readSingleGroup(group));
         }
 
         return mobGroups;
     }
 
-    private static WeightedMobSpawnGroup readSingleGroup(String json) throws InvalidConfigException {
+    private static WeightedMobSpawnGroup readSingleGroup(String json) throws InvalidConfigException
+    {
         String group = removeFirstAndLastChar(json.trim());
         String[] groupParts = StringHelper.readCommaSeperatedString(group);
         String mobName = null;
@@ -65,34 +95,42 @@ public class WeightedMobSpawnGroup {
         int max = -1;
 
         // Read all options
-        for (String option : groupParts) {
+        for (String option : groupParts)
+        {
             String[] optionParts = option.split(":");
-            if (optionParts.length != 2) {
+            if (optionParts.length != 2)
+            {
                 throw new InvalidConfigException("Invalid JSON structure near " + option);
             }
             String key = optionParts[0].trim();
             String value = optionParts[1].trim();
 
-            if (key.equalsIgnoreCase("\"mob\"")) {
+            if (key.equalsIgnoreCase("\"mob\""))
+            {
                 // Remove the quotes from the mob name
                 mobName = removeFirstAndLastChar(value);
             }
-            if (key.equalsIgnoreCase("\"weight\"")) {
+            if (key.equalsIgnoreCase("\"weight\""))
+            {
                 weight = StringHelper.readInt(value, 0, 1000);
             }
-            if (key.equalsIgnoreCase("\"min\"")) {
+            if (key.equalsIgnoreCase("\"min\""))
+            {
                 min = StringHelper.readInt(value, 0, 1000);
             }
-            if (key.equalsIgnoreCase("\"max\"")) {
+            if (key.equalsIgnoreCase("\"max\""))
+            {
                 max = StringHelper.readInt(value, 0, 1000);
             }
         }
 
         // Check if data is complete and valid
-        if (mobName == null || min == -1 || max == -1 || weight == -1) {
+        if (mobName == null || min == -1 || max == -1 || weight == -1)
+        {
             throw new InvalidConfigException("Excepted mob, weight, min and max, but one or more were missing in mob group " + json);
         }
-        if (min > max) {
+        if (min > max)
+        {
             throw new InvalidConfigException("Minimum group size may not be larger that maximum group size for mob group " + json);
         }
 
@@ -101,18 +139,20 @@ public class WeightedMobSpawnGroup {
 
     /**
      * Converts a list of mob groups to a single, JSON-formatted string.
-     *
      * @param list The list to convert.
      * @return The mob groups.
      */
-    public static String toJson(List<WeightedMobSpawnGroup> list) {
+    public static String toJson(List<WeightedMobSpawnGroup> list)
+    {
         StringBuilder json = new StringBuilder("[");
-        for (WeightedMobSpawnGroup group : list) {
+        for (WeightedMobSpawnGroup group : list)
+        {
             group.toJson(json);
             json.append(", ");
         }
         // Remove ", " at end
-        if (json.length() != 1) {
+        if (json.length() != 1)
+        {
             json.deleteCharAt(json.length() - 1);
             json.deleteCharAt(json.length() - 1);
         }
@@ -121,38 +161,14 @@ public class WeightedMobSpawnGroup {
         return json.toString();
     }
 
-    private static String removeFirstAndLastChar(String string) {
-        return string.substring(1, string.length() - 1);
-    }
-
-    public String getInternalName() {
-        return MobNames.toInternalName(this.mob);
-    }
-
-    public String getConfigName() {
-        return this.mob;
-    }
-
-    public int getWeight() {
-        return this.weight;
-    }
-
-    public int getMin() {
-        return this.min;
-    }
-
-    public int getMax() {
-        return this.max;
-    }
-
     /**
      * Converts this group to a JSON string.
-     *
      * @param json The {@link StringBuilder} to append the JSON to.
      */
-    private void toJson(StringBuilder json) {
+    private void toJson(StringBuilder json)
+    {
         json.append("{\"mob\": \"");
-        json.append(getConfigName());
+        json.append(getInternalName());
         json.append("\", \"weight\": ");
         json.append(getWeight());
         json.append(", \"min\": ");
@@ -163,38 +179,59 @@ public class WeightedMobSpawnGroup {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder builder = new StringBuilder();
         toJson(builder);
         return builder.toString();
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int prime = 31;
         int result = 1;
         result = prime * result + max;
         result = prime * result + min;
-        result = prime * result + mob.hashCode();
+        result = prime * result + getMob().hashCode();
         result = prime * result + weight;
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (!(obj instanceof WeightedMobSpawnGroup)) {
+        if (!(obj instanceof WeightedMobSpawnGroup))
+        {
             return false;
         }
         WeightedMobSpawnGroup other = (WeightedMobSpawnGroup) obj;
-        if (max != other.max || min != other.min || weight != other.weight) {
+        if (max != other.max || min != other.min || weight != other.weight)
+        {
             return false;
         }
-        return mob.equals(other.mob);
+        if (!getMob().equals(other.getMob()))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private static String removeFirstAndLastChar(String string)
+    {
+        return string.substring(1, string.length() - 1);
+    }
+
+    public String getMob()
+    {
+        return mob;
     }
 }

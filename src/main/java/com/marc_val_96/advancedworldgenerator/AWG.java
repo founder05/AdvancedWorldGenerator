@@ -1,5 +1,7 @@
 package com.marc_val_96.advancedworldgenerator;
 
+
+
 import com.marc_val_96.advancedworldgenerator.configuration.ConfigFunctionsManager;
 import com.marc_val_96.advancedworldgenerator.configuration.PluginConfig;
 import com.marc_val_96.advancedworldgenerator.customobjects.CustomObject;
@@ -20,11 +22,6 @@ import java.util.Random;
 
 public class AWG {
 
-    public static final int SUPPORTED_BLOCK_IDS = 4096;
-    /**
-     * The amount of different biome ids that are supported. 256 in Minecraft,
-     * so the extra ones cannot be saved to the world files.
-     */
     public static final int SUPPORTED_BIOME_IDS = 1024;
     /**
      * The world depth that the engine supports. Not the actual depth the world
@@ -71,7 +68,7 @@ public class AWG {
      * LocalWorld, Random, boolean, int, int)
      */
     public static boolean fireResourceProcessEvent(Resource resource, LocalWorld world, Random random, boolean villageInChunk, int chunkX,
-                                                   int chunkZ) {
+        int chunkZ) {
         return engine.fireResourceProcessEvent(resource, world, random, villageInChunk, chunkX, chunkZ);
     }
 
@@ -87,8 +84,7 @@ public class AWG {
 
     /**
      * Convienence method to quickly get the biome name at the given
-     * coordinates. Will return null if the world isn't loaded by Terrain
-     * Control.
+     * coordinates. Will return null if the world isn't loaded by AdvancedWorldGenerator
      * <p>
      *
      * @param worldName The world name.

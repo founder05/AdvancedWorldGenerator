@@ -326,9 +326,8 @@ public class NamedBinaryTag {
      * Remove a tag from a TAG_List or a TAG_Compound at the specified index.
      *
      * @param index Index of the tag.
-     * @return the removed tag
      */
-    public NamedBinaryTag removeTag(int index) {
+    public void removeTag(int index) {
         if (type != Type.TAG_List && type != Type.TAG_Compound)
             throw new RuntimeException();
         NamedBinaryTag[] subtags = (NamedBinaryTag[]) value;
@@ -338,7 +337,6 @@ public class NamedBinaryTag {
         index++;
         System.arraycopy(subtags, index, newValue, index - 1, subtags.length - index);
         value = newValue;
-        return victim;
     }
 
     /**

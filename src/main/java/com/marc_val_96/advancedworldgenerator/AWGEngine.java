@@ -30,7 +30,7 @@ public abstract class AWGEngine {
     private CustomObjectManager customObjectManager;
     private List<EventHandler> monitoringEventHandlers = new ArrayList<EventHandler>(5);
     private PluginConfig pluginConfig;
-    private Logger logger;
+    private final Logger logger;
 
     public AWGEngine(Logger logger) {
         this.logger = logger;

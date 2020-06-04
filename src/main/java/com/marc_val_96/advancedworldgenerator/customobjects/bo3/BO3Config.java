@@ -214,9 +214,9 @@ public class BO3Config extends ConfigFile {
         }
 
         // Store the blocks
-        blocks[0] = tempBlocksList.toArray(new BO3PlaceableFunction[tempBlocksList.size()]);
-        bo3Checks[0] = tempChecksList.toArray(new BO3Check[tempChecksList.size()]);
-        branches[0] = tempBranchesList.toArray(new BranchFunction[tempBranchesList.size()]);
+        blocks[0] = tempBlocksList.toArray(new BO3PlaceableFunction[0]);
+        bo3Checks[0] = tempChecksList.toArray(new BO3Check[0]);
+        branches[0] = tempBranchesList.toArray(new BranchFunction[0]);
         boundingBoxes[0] = box;
     }
 

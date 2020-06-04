@@ -117,9 +117,8 @@ public interface LocalMaterialData
      * Parses this material through the fallback system of world if required.
      *
      * @param world The world this material will be parsed through, each world may have different fallbacks.
-     * @return The parsed material
      */
-    LocalMaterialData parseForWorld(LocalWorld world);
+    void parseForWorld(LocalWorld world);
 
     /**
      * Gets whether this material falls down when no other block supports this

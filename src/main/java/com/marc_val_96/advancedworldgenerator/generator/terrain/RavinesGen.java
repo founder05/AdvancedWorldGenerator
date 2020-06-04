@@ -15,8 +15,8 @@ import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultMateria
 import java.util.Random;
 
 public class RavinesGen extends TerrainGenBase {
-    private float[] a = new float[AWG.SUPPORTED_BIOME_IDS];
-    private WorldConfig worldSettings;
+    private final float[] a = new float[AWG.SUPPORTED_BIOME_IDS];
+    private final WorldConfig worldSettings;
 
     public RavinesGen(WorldConfig wrk, LocalWorld world) {
         super(world);
@@ -69,7 +69,7 @@ public class RavinesGen extends TerrainGenBase {
             f2 += (localRandom.nextFloat() - localRandom.nextFloat()) * localRandom.nextFloat() * 2.0F;
             f1 += (localRandom.nextFloat() - localRandom.nextFloat()) * localRandom.nextFloat() * 4.0F;
 
-            if ((i == 0) && (localRandom.nextInt(4) == 0)) {
+            if (localRandom.nextInt(4) == 0) {
                 continue;
             }
             double d5 = paramDouble1 - d1;

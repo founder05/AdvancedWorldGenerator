@@ -1,10 +1,15 @@
 package com.marc_val_96.advancedworldgenerator.util;
 
 
+import com.marc_val_96.advancedworldgenerator.AWG;
 import com.marc_val_96.advancedworldgenerator.LocalMaterialData;
 import com.marc_val_96.advancedworldgenerator.LocalWorld;
 import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
 import com.marc_val_96.advancedworldgenerator.util.helpers.StringHelper;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -47,7 +52,23 @@ public class MaterialSet
     private boolean intSetUpToDate = true;
     private boolean parsed = false;
 
-
+    /**
+     * Adds the given material to the list.
+     *
+     * <p>If the material is "All", all
+     * materials in existence are added to the list. If the material is
+     * "Solid", all solid materials are added to the list. Otherwise,
+     * {@link AWG#readMaterial(String)} is used to read the
+     * material.
+     *
+     * <p>If the material {@link StringHelper#specifiesBlockData(String)
+     * specifies block data}, it will match only materials with exactly that
+     * block data. If the material doesn't specify block data, it will match
+     * materials with any block data.
+     *
+     * @param input The name of the material to add.
+     * @throws InvalidConfigException If the name is invalid.
+     */
     public void parseAndAdd(String input) throws InvalidConfigException
     {
         if (input.equalsIgnoreCase(ALL_MATERIALS))
@@ -119,11 +140,7 @@ public class MaterialSet
         {
             return false;
         }
-        if (!materials.equals(other.materials))
-        {
-            return false;
-        }
-        return true;
+        return materials.equals(other.materials);
     }
 
     /**
@@ -176,6 +193,13 @@ public class MaterialSet
         intSetUpToDate = true;
     }
 
+    /**
+     * Gets whether the specified material is in this collection. Returns
+     * false if the material is null.
+     *
+     * @param material The material to check.
+     * @return True if the material is in this set.
+     */
     public boolean contains(LocalMaterialData material)
     {
         if (material == null || material.isEmpty())
@@ -199,11 +223,7 @@ public class MaterialSet
         updateIntSet();
 
         // Check if the material is included
-        if (Arrays.binarySearch(materialIntSet, material.hashCode()) >= 0)
-        {
-            return true;
-        }
-        return false;
+        return Arrays.binarySearch(materialIntSet, material.hashCode()) >= 0;
     }
 
     /**
