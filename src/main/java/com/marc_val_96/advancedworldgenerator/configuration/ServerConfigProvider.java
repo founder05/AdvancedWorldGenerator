@@ -342,10 +342,10 @@ public final class ServerConfigProvider implements ConfigProvider
         }
     }
 
-    // TODO: This sorts, updates and registers biomes, saves biome id data and creates OTG biomes.
+    // TODO: This sorts, updates and registers biomes, saves biome id data and creates AWG biomes.
     // This is used when creating new worlds and dims, and when loading them.
     // This has to work for modern (>v7) and legacy (<v7) worlds, that use different
-    // rules for OTG biome ids and saved id's.
+    // rules for AWG biome ids and saved id's.
     // This method does too much and handles too many different situations, split it up!
     // TODO: Drop support for legacy worlds for 1.13/1.14 and clean this up.
     private String indexSettings(boolean isNewWorldConfig, Map<String, BiomeConfig> loadedBiomes, File worldSaveFolder, boolean isReload)
@@ -355,7 +355,7 @@ public final class ServerConfigProvider implements ConfigProvider
         ArrayList<BiomeConfig> nonVirtualBiomesExisting = new ArrayList<BiomeConfig>();
         ArrayList<BiomeConfig> nonVirtualBiomes = new ArrayList<BiomeConfig>();
 
-        // If this is a previously created world then load the biome id data and register biomes to the same OTG biome id as before.
+        // If this is a previously created world then load the biome id data and register biomes to the same AWG biome id as before.
         ArrayList<BiomeIdData> loadedBiomeIdData = BiomeIdData.loadBiomeIdData(worldSaveFolder);
         boolean hasWorldData = loadedBiomeIdData != null;
         if(hasWorldData)
@@ -381,13 +381,13 @@ public final class ServerConfigProvider implements ConfigProvider
 
         List<BiomeConfig> loadedBiomeList = new ArrayList<BiomeConfig>(loadedBiomes.values());
 
-        // Get OTG world save version
+        // Get AWG world save version
         WorldSaveData worldSaveData = WorldSaveData.loadWorldSaveData(worldSaveFolder);
 
         // This is a legacy (pre-v7) world if its not being created and either has no worldsavedata or worldsavedata version 6.
         // If this world has biome data but not worldsavedata, it's v7.
         // This ignores legacy worlds updated by v7 and earlier v8 versions unfortunately (though very few ppl should be affected).
-        //boolean isLegacyWorld = !OTG.IsNewWorldBeingCreated && (!hasWorldData || (worldSaveData != null && worldSaveData.version == 6));
+        //boolean isLegacyWorld = !AWG.IsNewWorldBeingCreated && (!hasWorldData || (worldSaveData != null && worldSaveData.version == 6));
         boolean isLegacyWorld = (!hasWorldData || (worldSaveData != null && worldSaveData.version == 6));
         if(worldSaveData == null)
         {
@@ -422,7 +422,7 @@ public final class ServerConfigProvider implements ConfigProvider
                             } else {
                                 // The only time a biomeId can be claimed already is when an
                                 // unloaded world is being reloaded.
-                                throw new RuntimeException("Error: OTG Biome id " + biomeIdData.otgBiomeId + " for biome " + biomeConfig.getName() + " was taken by " + OTG.getBiomeByOTGId(biomeIdData.otgBiomeId).getName());
+                                throw new RuntimeException("Error: AWG Biome id " + biomeIdData.otgBiomeId + " for biome " + biomeConfig.getName() + " was taken by " + OTG.getBiomeByOTGId(biomeIdData.otgBiomeId).getName());
                             }
 
                             if(biomeIdData.otgBiomeId > -1)
@@ -439,7 +439,7 @@ public final class ServerConfigProvider implements ConfigProvider
             }
         }
 
-        // Set OTG biome id's for biomes, make sure there is enough space to register all biomes.
+        // Set AWG biome id's for biomes, make sure there is enough space to register all biomes.
         for (BiomeConfig biomeConfig : usedBiomes)
         {
             // Statistics of the loaded biomes
@@ -538,7 +538,7 @@ public final class ServerConfigProvider implements ConfigProvider
 
     private void createAndRegisterBiome(ArrayList<BiomeIdData> loadedBiomeIdData, BiomeConfig biomeConfig, boolean isReload)
     {
-        // Get the assigned OTG biome id
+        // Get the assigned AWG biome id
         int otgBiomeId = -1;
         BiomeConfig[] otgIds2 = OTG.getEngine().getOTGBiomeIds(world.getName());
         for(int i = 0; i < otgIds2.length; i++)

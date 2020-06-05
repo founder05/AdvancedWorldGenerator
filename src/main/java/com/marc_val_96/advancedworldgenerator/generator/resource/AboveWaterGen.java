@@ -1,14 +1,21 @@
 package com.marc_val_96.advancedworldgenerator.generator.resource;
 
+import com.marc_val_96.advancedworldgenerator.LocalMaterialData;
 import com.marc_val_96.advancedworldgenerator.LocalWorld;
 import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig;
 import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
+import com.marc_val_96.advancedworldgenerator.util.ChunkCoordinate;
 
 import java.util.List;
 import java.util.Random;
 
-public class AboveWaterGen extends Resource {
-    public AboveWaterGen(BiomeConfig config, List<String> args) throws InvalidConfigException {
+import java.util.List;
+import java.util.Random;
+
+public abstract class AboveWaterGen extends Resource
+{
+    public AboveWaterGen(BiomeConfig config, List<String> args) throws InvalidConfigException
+    {
         super(config);
         assureSize(3, args);
 
@@ -17,29 +24,61 @@ public class AboveWaterGen extends Resource {
         rarity = readRarity(args.get(2));
     }
 
-    @Override
-    public void spawn(LocalWorld world, Random rand, boolean villageInChunk, int x, int z) {
-        int y = world.getLiquidHeight(x, z);
-        if (y == -1)
-            return;
+   
+    public void spawn(LocalWorld world, Random rand, boolean villageInChunk, int x, int z, ChunkCoordinate chunkBeingPopulated)
+    {
+        // Make sure we stay within population bounds, anything outside won't be spawned (unless it's in an existing chunk).
 
-        for (int i = 0; i < 10; i++) {
-            int j = x + rand.nextInt(8) - rand.nextInt(8);
-            int k = y + rand.nextInt(4) - rand.nextInt(4);
-            int m = z + rand.nextInt(8) - rand.nextInt(8);
-            if (!world.isEmpty(j, k, m) || !world.getMaterial(j, k - 1, m).isLiquid())
+        int y = world.getBlockAboveLiquidHeight(x, z, chunkBeingPopulated);
+        if (y == -1)
+        {
+            return;
+        }
+
+        parseMaterials(world, material, null);
+
+        int j;
+        int k;
+        int m;
+        LocalMaterialData worldMaterial;
+        LocalMaterialData worldMaterialBeneath;
+
+        for (int i = 0; i < 10; i++)
+        {
+            j = x + rand.nextInt(8) - rand.nextInt(8);
+            k = y + rand.nextInt(4) - rand.nextInt(4);
+            m = z + rand.nextInt(8) - rand.nextInt(8);
+
+            worldMaterial = world.getMaterial(j, k, m, chunkBeingPopulated);
+            if (worldMaterial == null || !worldMaterial.isAir())
+            {
                 continue;
-            world.setBlock(j, k, m, material);
+            }
+
+            worldMaterialBeneath = world.getMaterial(j, k - 1, m, chunkBeingPopulated);
+            if (
+                worldMaterialBeneath != null &&
+                    !worldMaterialBeneath.isLiquid()
+            )
+            {
+                continue;
+            }
+
+            world.setBlock(j, k, m, material, null, chunkBeingPopulated);
         }
     }
 
+    protected abstract void parseMaterials(LocalWorld world, LocalMaterialData material, Object o);
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "AboveWaterRes(" + material + "," + frequency + "," + rarity + ")";
     }
 
     @Override
-    public int getPriority() {
+    public int getPriority()
+    {
         return -11;
     }
 }

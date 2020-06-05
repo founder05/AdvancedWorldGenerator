@@ -53,8 +53,8 @@ public final class TridimensionalSelection implements SelectionCalculator {
 
     private boolean toAdd(Material toAdd) {
         return ((selectionOptions.isAir() && toAdd == Material.AIR)
-                || (selectionOptions.isLava() && (toAdd == Material.LAVA || toAdd == Material.STATIONARY_LAVA))
-                || (selectionOptions.isWater() && (toAdd == Material.WATER || toAdd == Material.STATIONARY_WATER)));
+                || (selectionOptions.isLava() && (toAdd == Material.LAVA))
+                || (selectionOptions.isWater() && (toAdd == Material.WATER)));
     }
 
     @SuppressWarnings("ConstantConditions")

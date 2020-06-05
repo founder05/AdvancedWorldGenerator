@@ -4,9 +4,10 @@ import com.marc_val_96.advancedworldgenerator.LocalWorld;
 import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
 import com.marc_val_96.advancedworldgenerator.util.MaterialSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public final class BlockCheck extends BO3Check {
+public abstract class BlockCheck extends BO3Check {
     public MaterialSet toCheck;
 
     public BlockCheck(BO3Config config, List<String> args) throws InvalidConfigException {
@@ -39,7 +40,12 @@ public final class BlockCheck extends BO3Check {
 
     @Override
     public BO3Check rotate() {
-        return new BlockCheck(getHolder(), toCheck.rotate(), z, y, -x);
+        return new BlockCheck(getHolder(), toCheck.rotate(), z, y, -x) {
+            @Override
+            public void filterBiomes(ArrayList<String> customBiomeNames, boolean logWarnings) {
+
+            }
+        };
     }
 
 }

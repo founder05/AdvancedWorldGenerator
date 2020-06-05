@@ -15,11 +15,11 @@ import com.marc_val_96.advancedworldgenerator.util.Rotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-public class CustomStructureGen extends Resource {
-    private List<CustomObject> objects;
-    private List<Double> objectChances;
-    private List<String> objectNames;
+//TODO Rewrite This Class
+public abstract class CustomStructureGen extends Resource {
+    private final List<CustomObject> objects;
+    private final List<Double> objectChances;
+    private final List<String> objectNames;
 
     public CustomStructureGen(BiomeConfig biomeConfig, List<String> args) throws InvalidConfigException {
         super(biomeConfig);
@@ -31,9 +31,8 @@ public class CustomStructureGen extends Resource {
             if (object == null || !object.canSpawnAsObject()) {
                 throw new InvalidConfigException("No custom object found with the name " + args.get(i));
             }
-            if (object.getBranches(Rotation.NORTH).length == 0) {
-                //throw new InvalidConfigException("The object " + args.get(i) + " isn't a structure: it has no branches");
-            }
+            object.getBranches(
+                Rotation.NORTH);//throw new InvalidConfigException("The object " + args.get(i) + " isn't a structure: it has no branches");
             objects.add(object);
             objectNames.add(args.get(i));
             objectChances.add(readRarity(args.get(i + 1)));
@@ -60,13 +59,11 @@ public class CustomStructureGen extends Resource {
         int currentChunkZ = chunkCoord.getChunkZ();
         for (int searchChunkX = currentChunkX - searchRadius; searchChunkX < currentChunkX + searchRadius; searchChunkX++) {
             for (int searchChunkZ = currentChunkZ - searchRadius; searchChunkZ < currentChunkZ + searchRadius; searchChunkZ++) {
-                CustomObjectStructure structureStart = world.getStructureCache().getStructureStart(searchChunkX, searchChunkZ);
-                if (structureStart != null) {
-                    structureStart.spawnForChunk(chunkCoord);
+
                 }
             }
         }
-    }
+
 
     @Override
     public String toString() {

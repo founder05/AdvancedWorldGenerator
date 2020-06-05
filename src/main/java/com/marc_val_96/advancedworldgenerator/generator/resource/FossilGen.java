@@ -9,24 +9,33 @@ import com.marc_val_96.advancedworldgenerator.util.ChunkCoordinate;
 import java.util.List;
 import java.util.Random;
 
-public final class FossilGen extends Resource {
+import java.util.List;
+import java.util.Random;
 
-    public FossilGen(BiomeConfig biomeConfig, List<String> args) throws InvalidConfigException {
+public abstract class FossilGen extends Resource
+{
+    public FossilGen(BiomeConfig biomeConfig, List<String> args) throws InvalidConfigException
+    {
         super(biomeConfig);
         assureSize(1, args);
 
         rarity = readRarity(args.get(0));
     }
 
-    @Override
-    public void spawn(LocalWorld world, Random random, boolean villageInChunk, int x, int z) {
-        return;
+
+    public void spawn(LocalWorld world, Random random, boolean villageInChunk, int x, int z, ChunkCoordinate chunkBeingPopulated)
+    {
+        // Left blank, as spawnInChunk already handles this.
     }
 
     @Override
-    protected void spawnInChunk(LocalWorld world, Random random, boolean villageInChunk, ChunkCoordinate chunkCoord) {
+    protected void spawnInChunk(LocalWorld world, Random random, boolean villageInChunk, ChunkCoordinate chunkCoord)
+    {
         if (random.nextDouble() * 100.0 > rarity)
+        {
             return;
+        }
+
         // Unfortunately, Minecraft ignores the passed random instance, and
         // creates one based on the chunk coords and world seed. This means
         // that spawning the object multiple times in a chunk will just
@@ -37,28 +46,32 @@ public final class FossilGen extends Resource {
     }
 
     @Override
-    public boolean isAnalogousTo(ConfigFunction<BiomeConfig> other) {
+    public boolean isAnalogousTo(ConfigFunction<BiomeConfig> other)
+    {
         return getClass() == other.getClass();
     }
 
     @Override
-    public int getPriority() {
+    public int getPriority()
+    {
         return -21;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Fossil(" + rarity + ")";
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return super.hashCode();
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other)
+    {
         return super.equals(other);
     }
-
 }

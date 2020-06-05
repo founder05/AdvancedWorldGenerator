@@ -14,53 +14,77 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CustomObjectGen extends Resource {
-    private List<CustomObject> objects;
-    private List<String> objectNames;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-    public CustomObjectGen(BiomeConfig biomeConfig, List<String> args) throws InvalidConfigException {
+public abstract class CustomObjectGen extends Resource
+{
+    private final List<CustomObject> objects;
+    private final List<String> objectNames;
+
+    public CustomObjectGen(BiomeConfig biomeConfig, List<String> args) throws InvalidConfigException
+    {
         super(biomeConfig);
-        if (args.isEmpty() || (args.size() == 1 && args.get(0).trim().isEmpty())) {
+        if (args.isEmpty() || (args.size() == 1 && args.get(0).trim().isEmpty()))
+        {
             // Backwards compatibility
             args = new ArrayList<String>();
             args.add("UseWorld");
         }
         objects = new ArrayList<CustomObject>();
         objectNames = new ArrayList<String>();
-        for (String arg : args) {
-            CustomObject object = getHolder().worldConfig.worldObjects.parseCustomObject(arg);
-            if (object == null || !object.canSpawnAsObject()) {
-                throw new InvalidConfigException("No custom object found with the name " + arg);
+        objectNames.addAll(args);
+    }
+
+    private List<CustomObject> getObjects(String worldName)
+    {
+        if(objects.isEmpty() && !objectNames.isEmpty())
+        {
+            for (String objectName : objectNames) {
+                CustomObject object = AWG.getCustomObjectManager().getGlobalObjects()
+                    .getObjectByName(objectName);
+                objects.add(object);
             }
-            objects.add(object);
-            objectNames.add(arg);
+        }
+        return objects;
+    }
+
+
+    public void spawn(LocalWorld world, Random random, boolean villageInChunk, int x, int z, ChunkCoordinate chunkBeingPopulated)
+    {
+        // Left blank, as spawnInChunk already handles this.
+    }
+
+    @Override
+    protected void spawnInChunk(LocalWorld world, Random random, boolean villageInChunk, ChunkCoordinate chunkCoord)
+    {
+        for (CustomObject object : getObjects(world.getName()))
+        {
+            if(object != null) // if null then BO2/BO3 file could not be found
+            {
+                object.process(world, random, chunkCoord);
+            }
         }
     }
 
     @Override
-    public void spawn(LocalWorld world, Random random, boolean villageInChunk, int x, int z) {
-        // Left blank, as process(..) already handles this.
-    }
-
-    @Override
-    protected void spawnInChunk(LocalWorld world, Random random, boolean villageInChunk, ChunkCoordinate chunkCoord) {
-        for (CustomObject object : objects) {
-            object.process(world, random, chunkCoord);
-        }
-    }
-
-    @Override
-    public String toString() {
+    public String toString()
+    {
         return "CustomObject(" + StringHelper.join(objectNames, ",") + ")";
     }
 
     @Override
-    public boolean isAnalogousTo(ConfigFunction<BiomeConfig> other) {
-        if (getClass() == other.getClass()) {
+    public boolean isAnalogousTo(ConfigFunction<BiomeConfig> other)
+    {
+        if (getClass() == other.getClass())
+        {
             try {
                 CustomObjectGen otherO = (CustomObjectGen) other;
                 return otherO.objectNames.size() == this.objectNames.size() && otherO.objectNames.containsAll(this.objectNames);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 AWG.log(LogMarker.WARN, ex.getMessage());
             }
         }
@@ -68,7 +92,8 @@ public class CustomObjectGen extends Resource {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 5;
         hash = 41 * hash + super.hashCode();
         hash = 41 * hash + (this.objects != null ? this.objects.hashCode() : 0);
@@ -77,7 +102,8 @@ public class CustomObjectGen extends Resource {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other)
+    {
         if (!super.equals(other))
             return false;
         if (other == null)
@@ -88,14 +114,14 @@ public class CustomObjectGen extends Resource {
             return false;
         final CustomObjectGen compare = (CustomObjectGen) other;
         return (this.objects == null ? this.objects == compare.objects
-                : this.objects.equals(compare.objects))
-                && (this.objectNames == null ? this.objectNames == compare.objectNames
-                : this.objectNames.equals(compare.objectNames));
+            : this.objects.equals(compare.objects))
+            && (this.objectNames == null ? this.objectNames == compare.objectNames
+            : this.objectNames.equals(compare.objectNames));
     }
 
     @Override
-    public int getPriority() {
+    public int getPriority()
+    {
         return -40;
     }
-
 }

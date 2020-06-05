@@ -11,7 +11,7 @@ public class ObjectCoordinate {
     public LocalMaterialData material;
     public int BranchDirection;
     public int BranchOdds;
-    private int hash;
+    private final int hash;
 
 
     public ObjectCoordinate(int _x, int _y, int _z) {
@@ -56,10 +56,7 @@ public class ObjectCoordinate {
 
             return newCoordinate;
 
-        } catch (NumberFormatException e) {
-            return null;
-
-        } catch (InvalidConfigException e) {
+        } catch (NumberFormatException | InvalidConfigException e) {
             return null;
 
         }

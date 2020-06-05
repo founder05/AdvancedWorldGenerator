@@ -11,7 +11,7 @@ import com.marc_val_96.advancedworldgenerator.util.helpers.RandomHelper;
 import java.util.List;
 import java.util.Random;
 
-public class LiquidGen extends Resource {
+public abstract class LiquidGen extends Resource {
     private final int maxAltitude;
     private final int minAltitude;
     private final MaterialSet sourceBlocks;

@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Represents the Branch(..) function in the BO3 files.
  */
-public class BranchFunction extends BO3Function implements Branch {
+public abstract class BranchFunction extends BO3Function implements Branch {
 
     /**
      * The base X coordinate where this branch is expected to spawn
@@ -53,7 +53,12 @@ public class BranchFunction extends BO3Function implements Branch {
 
     @Override
     public BranchFunction rotate() {
-        BranchFunction rotatedBranch = new BranchFunction(getHolder());
+        BranchFunction rotatedBranch = new BranchFunction(getHolder()) {
+            @Override
+            public void filterBiomes(ArrayList<String> customBiomeNames, boolean logWarnings) {
+
+            }
+        };
         rotatedBranch.x = z;
         rotatedBranch.y = y;
         rotatedBranch.z = -x;

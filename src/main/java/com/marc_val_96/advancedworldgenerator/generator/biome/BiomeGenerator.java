@@ -3,10 +3,30 @@ package com.marc_val_96.advancedworldgenerator.generator.biome;
 import com.marc_val_96.advancedworldgenerator.LocalWorld;
 
 
-public abstract class BiomeGenerator {
+/**
+ * The biome generator. External plugins are allowed to implement this class
+ * on their own as long as it is registered using
+ * {@link BiomeModeManager#register(String, Class)}.
+ *
+ * <p>
+ * A biome generator doesn't have to implement all methods in this class. If
+ * it can't generate biomes at a lower precision, {@link
+ * #getBiomesUnZoomed(int[], int, int, int, int, OutputType)} doesn't have to
+ * be overridden. If it doesn't have its own cache, {@link #cleanupCache()}
+ * and {@link #getBiome(int, int)} also don't have to be overridden.
+ *
+ * <p>
+ * Two methods exist to detect whether the generator supports {@link
+ * #canGenerateUnZoomed() unzoomed biomes} and {@link #isCached() cached
+ * lookups}. By default, both methods return {@code false}. If the biome
+ * generator does support those features the methods must be overridden.
+ */
+public abstract class BiomeGenerator
+{
     protected final LocalWorld world;
 
-    public BiomeGenerator(LocalWorld world) {
+    BiomeGenerator(LocalWorld world)
+    {
         this.world = world;
     }
 
@@ -26,7 +46,8 @@ public abstract class BiomeGenerator {
      * generator is not allowed to return internal arrays, or to store this
      * array.
      */
-    public int[] getBiomesUnZoomed(int[] biomeArray, int x, int z, int xSize, int zSize, OutputType type) {
+    public int[] getBiomesUnZoomed(int[] biomeArray, int x, int z, int xSize, int zSize, OutputType type)
+    {
         // Fall back on getBiomes
         // When overriding this method to actually generate unzoomed biomes,
         // make sure to also override canGenerateUnZoomed so that it returns
@@ -56,14 +77,15 @@ public abstract class BiomeGenerator {
     /**
      * Gets the biome of a single column. Only available for cached biome
      * generators, as the method would be way too slow otherwise.
-     *
      * @param blockX X coord of the column.
      * @param blockZ Z coord of the column.
      * @return The biome id.
      * @throws UnsupportedOperationException If {@link #isCached()} == false.
      */
-    public int getBiome(int blockX, int blockZ) throws UnsupportedOperationException {
-        if (isCached()) {
+    public int getBiome(int blockX, int blockZ) throws UnsupportedOperationException
+    {
+        if (isCached())
+        {
             // Implementation has a bug
             throw new AssertionError("isCached() == true, but getBiome is not overridden");
         } else {
@@ -73,29 +95,32 @@ public abstract class BiomeGenerator {
 
     /**
      * Cleans up the cache.
-     *
      * @throws UnsupportedOperationException If {@link #isCached()} == false.
      */
-    public void cleanupCache() throws UnsupportedOperationException {
-        if (isCached()) {
+    public void cleanupCache() throws UnsupportedOperationException
+    {
+        if (isCached())
+        {
             // Implementation has a bug
             throw new AssertionError("isCached() == true, but cleanupCache is not overridden");
-        } else {
+        } else
+        {
             throw new UnsupportedOperationException("isCached() == false, so no cache to cleanup");
         }
     }
 
-    public boolean canGenerateUnZoomed() {
+    public boolean canGenerateUnZoomed()
+    {
         return false;
     }
 
     /**
      * Gets whether this biome generator is cached. Cached biome generators
      * have an implementation for {@link #getBiome(int, int)} and {@link #cleanupCache()}.
-     *
      * @return True if this biome generator is cached, false otherwise.
      */
-    public boolean isCached() {
+    public boolean isCached()
+    {
         return false;
     }
 
@@ -103,11 +128,10 @@ public abstract class BiomeGenerator {
      * Biome generators can be wrapped, for example to cache another biome
      * generator. This method returns the unwrapped biome generator. If this
      * biome generator doesn't wrap another biome generator, it returns itself.
-     *
      * @return The unwrapped biome generator.
      */
-    public BiomeGenerator unwrap() {
+    public BiomeGenerator unwrap()
+    {
         return this;
     }
-
 }
