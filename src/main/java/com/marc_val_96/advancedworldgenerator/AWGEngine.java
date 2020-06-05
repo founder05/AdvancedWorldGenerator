@@ -263,16 +263,6 @@ public abstract class AWGEngine {
      * <ul>
      * <li>STONE</li>
      * <li>minecraft:stone</li>
-     * <li>Stone</li>
-     * <li>Wool:1</li>
-     * <li>Wool.1 <i>(deprecated, use ':')</i></li>
-     * <li>minecraft:wool:1</li>
-     * <li>35:1 <i>(deprecated, use block name)</i></li>
-     * <li>35.1 <i>(deprecated, use block name and ':')</i></li>
-     * <li>buildcraft:blockRedLaser <i>(only when BuildCraft is
-     * installed)</i></li>
-     * </ul>
-     * <p>
      *
      * @param name The name of the material.
      * @return The material, or null if not found.

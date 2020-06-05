@@ -6,6 +6,7 @@ import com.marc_val_96.advancedworldgenerator.exception.InvalidConfigException;
 import com.marc_val_96.advancedworldgenerator.util.MaterialSet;
 import com.marc_val_96.advancedworldgenerator.util.helpers.StringHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -139,4 +140,5 @@ public abstract class ConfigFunction<T> {
         return StringHelper.readDouble(string, 0.000001, 100);
     }
 
+    public abstract void filterBiomes(ArrayList<String> customBiomeNames, boolean logWarnings);
 }

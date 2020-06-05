@@ -23,7 +23,7 @@ import java.util.Random;
  * all the extra methods are no longer needed.
  */
 public class TreeObject extends SimpleObject {
-    private TreeType type;
+    private final TreeType type;
     private int minHeight = AWG.WORLD_DEPTH;
     private int maxHeight = AWG.WORLD_HEIGHT;
 

@@ -187,7 +187,7 @@ public class BO2 extends ConfigFile implements CustomObject {
         int faultCounter = 0;
 
         for (ObjectCoordinate point : objData) {
-            if (!world.isLoaded((x + point.x), (y + point.y), (z + point.z)))
+            if (world.isLoaded((x + point.x), (y + point.y), (z + point.z)))
                 return false;
 
             if (!dig) {

@@ -537,7 +537,7 @@ public class BukkitWorld implements LocalWorld {
 
     @Override
     public boolean isLoaded(int x, int y, int z) {
-        return this.getChunk(x, y, z) != null;
+        return this.getChunk(x, y, z) == null;
     }
 
     @Override

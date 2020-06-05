@@ -8,8 +8,21 @@ import java.util.List;
 /**
  * Some default settings are provided by Mojang, so that they don't have to be
  * updated in our code when Mojang changes the default.
+ *
  */
-public interface MojangSettings {
+public interface MojangSettings
+{
+    /**
+     * Represents the four mob type groups used by vanilla Minecraft.
+     */
+    enum EntityCategory
+    {
+        AMBIENT_CREATURE,
+        WATER_CREATURE,
+        CREATURE,
+        MONSTER
+    }
+
     /**
      * Gets the temperature of this biome, between 0 and 2 (inclusive). Higher
      * is warmer.
@@ -55,20 +68,8 @@ public interface MojangSettings {
 
     /**
      * Gets the default value for the mob spawn list.
-     *
      * @param entityCategory The mob type.
      * @return The mob spawn list.
      */
     List<WeightedMobSpawnGroup> getMobSpawnGroup(EntityCategory entityCategory);
-
-    /**
-     * Represents the four mob type groups used by vanilla Minecraft.
-     */
-    enum EntityCategory {
-        AMBIENT_CREATURE,
-        WATER_CREATURE,
-        CREATURE,
-        MONSTER
-    }
-
 }

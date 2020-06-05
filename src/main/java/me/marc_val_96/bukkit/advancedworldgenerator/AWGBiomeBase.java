@@ -74,12 +74,12 @@ public class AWGBiomeBase extends BiomeBase {
             // original and custom biome
             BiomeBase existingBiome = BiomeBase.getBiome(savedBiomeId);
 
+            /*, existingBiomeName*/
             if (existingBiome == null) {
                 // Original biome not yet registered. This is because it's a
                 // custom biome that is loaded after this virtual biome, so it
                 // will soon be registered
                 BiomeBase.REGISTRY_ID.a(savedBiomeId, biomeKey, customBiome);
-                AWG.log(LogMarker.DEBUG, ",{},{},{}", biomeConfig.getName(), savedBiomeId, biomeIds.getGenerationId());
             } else {
                 MinecraftKey existingBiomeKey = BiomeBase.REGISTRY_ID.b(existingBiome);
                 BiomeBase.REGISTRY_ID.a(savedBiomeId, biomeKey, customBiome);
@@ -89,14 +89,13 @@ public class AWGBiomeBase extends BiomeBase {
                 // if(existingBiome instanceof CustomBiome) {
                 //     existingBiomeName = String.valueOf(((CustomBiome) existingBiome).generationId);
                 // }
-                AWG.log(LogMarker.DEBUG, ",{},{},{}", biomeConfig.getName(), savedBiomeId, biomeIds.getGenerationId() /*, existingBiomeName*/);
             }
         } else {
             // Normal insertion
             BiomeBase.REGISTRY_ID.a(savedBiomeId, biomeKey, customBiome);
 
-            AWG.log(LogMarker.DEBUG, ",{},{},{}", biomeConfig.getName(), savedBiomeId, biomeIds.getGenerationId());
         }
+        AWG.log(LogMarker.DEBUG, ",{},{},{}", biomeConfig.getName(), savedBiomeId, biomeIds.getGenerationId());
 
         // Add biome to Bukkit enum if it's not there yet
         try {
@@ -122,7 +121,7 @@ public class AWGBiomeBase extends BiomeBase {
     private static void checkRegistry() {
         for (int i = 168; i >= 0; --i) {
             BiomeBase biome = getBiome(i);
-            if (biome != null && biome instanceof AWGBiomeBase && ((AWGBiomeBase) biome).generationId != i) {
+            if (biome instanceof AWGBiomeBase && ((AWGBiomeBase) biome).generationId != i) {
                 throw new AssertionError("Biome ID #" + i + " returns custom biome #" +
                         ((AWGBiomeBase) biome).generationId + " instead of its own.");
             }

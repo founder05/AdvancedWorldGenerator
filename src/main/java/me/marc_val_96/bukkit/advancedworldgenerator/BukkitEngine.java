@@ -78,7 +78,7 @@ public abstract class BukkitEngine extends AWGEngine {
         if (block == null) {
             DefaultMaterial defaultMaterial = DefaultMaterial.getMaterial(blockName);
             if (defaultMaterial != DefaultMaterial.UNKNOWN_BLOCK) {
-                block = Block.getById(defaultMaterial.id);
+                block = Block.getById(Integer.parseInt(defaultMaterial.name()));
             }
         }
 

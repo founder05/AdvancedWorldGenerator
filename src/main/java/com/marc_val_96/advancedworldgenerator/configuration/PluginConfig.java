@@ -53,7 +53,7 @@ public final class PluginConfig extends ConfigFile {
     @Override
     protected void writeConfigSettings(SettingsMap writer) {
         // The modes
-        writer.bigTitle("The AWG Plugin Config File ");
+        writer.bigTitle("The AWG  Plugin Config File ");
 
         writer.putSetting(WorldStandardValues.SETTINGS_MODE, this.SettingsMode,
                 "How this config file will be treated.",

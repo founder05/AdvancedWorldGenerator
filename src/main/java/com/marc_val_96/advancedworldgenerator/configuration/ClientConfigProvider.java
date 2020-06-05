@@ -23,8 +23,8 @@ import java.io.IOException;
  */
 public final class ClientConfigProvider implements ConfigProvider {
 
-    private CustomObjectCollection customObjects;
-    private WorldConfig worldConfig;
+    private final CustomObjectCollection customObjects;
+    private final WorldConfig worldConfig;
 
     /**
      * Holds all biome configs. Generation Id => BiomeConfig
@@ -32,7 +32,7 @@ public final class ClientConfigProvider implements ConfigProvider {
      * Must be simple array for fast access. Warning: some ids may contain
      * null values, always check.
      */
-    private LocalBiome[] biomes;
+    private final LocalBiome[] biomes;
 
     public ClientConfigProvider(DataInputStream stream, LocalWorld world) throws IOException {
         // We need a valid CustomObjects object with things like the trees in

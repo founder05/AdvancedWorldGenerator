@@ -1,5 +1,6 @@
 package com.marc_val_96.advancedworldgenerator.configuration.standard;
 
+import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig;
 import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig.MineshaftType;
 import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig.RareBuildingType;
 import com.marc_val_96.advancedworldgenerator.configuration.BiomeConfig.VillageType;
@@ -8,8 +9,6 @@ import com.marc_val_96.advancedworldgenerator.generator.surface.MesaSurfaceGener
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultBiome;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.DefaultMaterial;
 import com.marc_val_96.advancedworldgenerator.util.minecraftTypes.TreeType;
-
-import java.util.Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,8 +40,6 @@ public class MinecraftBiomeTemplates
             this.defaultBiomeTemperature = this.mojangSettings.getTemperature();
             this.defaultBiomeWetness = this.mojangSettings.getWetness();
 
-            // Remove default mobs for vanilla biomes, these will be inherited
-            // TODO: Check if this breaks Bukkit mob spawning
 
             this.defaultCreatures = new ArrayList<WeightedMobSpawnGroup>();
             this.defaultMonsters = new ArrayList<WeightedMobSpawnGroup>();
@@ -53,7 +50,6 @@ public class MinecraftBiomeTemplates
             this.defaultCreatures = this.mojangSettings.getMobSpawnGroup(MojangSettings.EntityCategory.CREATURE);
             this.defaultWaterCreatures = this.mojangSettings.getMobSpawnGroup(MojangSettings.EntityCategory.WATER_CREATURE);
             this.defaultAmbientCreatures = this.mojangSettings.getMobSpawnGroup(MojangSettings.EntityCategory.AMBIENT_CREATURE);
-
         }
 
         protected void clearDefaultBorder()
@@ -66,11 +62,6 @@ public class MinecraftBiomeTemplates
 
     public static class Ocean extends MinecraftBiomeTemplate
     {
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
         public Ocean(MojangSettings mojangSettings, int worldHeight)
         {
             super(mojangSettings, worldHeight);
@@ -100,7 +91,7 @@ public class MinecraftBiomeTemplates
             this.defaultGrass = 100;
             this.defaultColor = 0x8DB360;
             this.defaultStrongholds = false;
-            this.defaultVillageType = VillageType.wood;
+            this.defaultVillageType = BiomeConfig.VillageType.wood;
             this.defaultDoubleGrass = 10;
             this.defaultDoubleGrassIsGrouped = true;
             this.defaultReed = 5;
@@ -123,13 +114,9 @@ public class MinecraftBiomeTemplates
             this.defaultCactus = 10;
             this.defaultColor = 0xFA9418;
             this.defaultWell = new Object[] {DefaultMaterial.SANDSTONE, DefaultMaterial.SANDSTONE_STAIRS, DefaultMaterial.WATER, 1, 0.1, 2,
-<<<<<<< HEAD
                 this.worldHeight, DefaultMaterial.SAND};
-=======
-                    this.worldHeight, DefaultMaterial.SAND};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
             this.defaultVillageType = VillageType.sandstone;
-            this.defaultRareBuildingType = RareBuildingType.desertPyramid;
+            this.defaultRareBuildingType = BiomeConfig.RareBuildingType.desertPyramid;
             this.defaultBorder.add(DefaultBiome.BADLANDS.Name);
             this.defaultNotBorderNear.add(DefaultBiome.OCEAN.Name);
             this.defaultNotBorderNear.add(DefaultBiome.BADLANDS_PLATEAU.Name);
@@ -155,11 +142,7 @@ public class MinecraftBiomeTemplates
             this.defaultEmeraldOre = BiomeStandardValues.EmeraldDepositFrequency;
             this.defaultTree = new Object[] {1, TreeType.Taiga2, 10, TreeType.BigTree, 1, TreeType.Tree, 9};
             this.defaultSurfaceSurfaceAndGroundControl = new Object[] {DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, 1.0,
-<<<<<<< HEAD
                 DefaultMaterial.STONE, DefaultMaterial.STONE, 10.0};
-=======
-                    DefaultMaterial.STONE, DefaultMaterial.STONE, 10.0};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
 
             this.defaultInheritMobsBiomeName = "minecraft:mountains";
             this.defaultBiomeDictId = "MOUNTAIN, HILLS";
@@ -437,11 +420,7 @@ public class MinecraftBiomeTemplates
             this.defaultCactus = 10;
             this.defaultColor = 0xD25F12;
             this.defaultWell = new Object[] {DefaultMaterial.SANDSTONE, DefaultMaterial.SANDSTONE_STAIRS, DefaultMaterial.WATER, 1, 0.1, 2,
-<<<<<<< HEAD
                 this.worldHeight, DefaultMaterial.SAND};
-=======
-                    this.worldHeight, DefaultMaterial.SAND};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
             this.defaultVillageType = VillageType.sandstone;
             this.defaultRareBuildingType = RareBuildingType.desertPyramid;
 
@@ -519,11 +498,7 @@ public class MinecraftBiomeTemplates
             this.defaultColor = 0x537B09;
             this.defaultRareBuildingType = RareBuildingType.jungleTemple;
             this.defaultTree = new Object[] {50, TreeType.BigTree, 10, TreeType.GroundBush, 50, TreeType.JungleTree, 35,
-<<<<<<< HEAD
                 TreeType.CocoaTree, 100};
-=======
-                    TreeType.CocoaTree, 100};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
             this.defaultMelons = 1;
 
             this.defaultInheritMobsBiomeName = "minecraft:jungle";
@@ -692,11 +667,7 @@ public class MinecraftBiomeTemplates
             this.defaultMushroom = 8;
             this.defaultLargeFerns = 60;
             this.defaultSurfaceSurfaceAndGroundControl = new Object[] {DefaultMaterial.DIRT + ":2", DefaultMaterial.DIRT, -0.95,
-<<<<<<< HEAD
                 DefaultMaterial.DIRT + ":1", DefaultMaterial.DIRT, 1.75};
-=======
-                    DefaultMaterial.DIRT + ":1", DefaultMaterial.DIRT, 1.75};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
 
             this.defaultVillageType = VillageType.taiga;
 
@@ -877,11 +848,7 @@ public class MinecraftBiomeTemplates
             super(mojangSettings, worldHeight);
             this.defaultColor = 0x525252;
             this.defaultSurfaceSurfaceAndGroundControl = new Object[] {DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, -1.0,
-<<<<<<< HEAD
                 DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, 2.0, DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, 10.0};
-=======
-                    DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, 2.0, DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, 10.0};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
             this.defaultRarity = 10;
 
             this.defaultInheritMobsBiomeName = "minecraft:gravelly_mountains";
@@ -1067,11 +1034,7 @@ public class MinecraftBiomeTemplates
             this.defaultColor = 0x466246;
             this.defaultRarity = 10;
             this.defaultSurfaceSurfaceAndGroundControl = new Object[] {DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, -1.0,
-<<<<<<< HEAD
                 DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, 2.0, DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, 10.0};
-=======
-                    DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, 2.0, DefaultMaterial.GRAVEL, DefaultMaterial.GRAVEL, 10.0};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
             // Override IsleInBiome: Extreme Hills of Extreme Hills+
             this.defaultIsle.clear();
             this.defaultIsle.add(DefaultBiome.GRAVELLY_MOUNTAINS.Name);
@@ -1090,11 +1053,7 @@ public class MinecraftBiomeTemplates
             this.defaultGrass = 60;
             this.defaultDoubleGrass = 0;
             this.defaultSurfaceSurfaceAndGroundControl = new Object[] {DefaultMaterial.GRASS_BLOCK, DefaultMaterial.DIRT, -0.5,
-<<<<<<< HEAD
                 DefaultMaterial.DIRT + ":1", DefaultMaterial.DIRT, 1.75, DefaultMaterial.STONE, DefaultMaterial.STONE, 10};
-=======
-                    DefaultMaterial.DIRT + ":1", DefaultMaterial.DIRT, 1.75, DefaultMaterial.STONE, DefaultMaterial.STONE, 10};
->>>>>>> 528a69e1c2ccbaadf4d2f70b129d842fc4839d22
 
             this.defaultInheritMobsBiomeName = "minecraft:shattered_savanna";
         }

@@ -120,7 +120,7 @@ public class BO3 implements CustomObject {
         // Check for source blocks
         int blocksOutsideSourceBlock = 0;
         for (BO3PlaceableFunction block : blocks) {
-            if (!world.isLoaded(x + block.x, y + block.y, z + block.z)) {
+            if (world.isLoaded(x + block.x, y + block.y, z + block.z)) {
                 // Cannot spawn BO3, part of world is not loaded
                 return false;
             }

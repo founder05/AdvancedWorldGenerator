@@ -993,8 +993,7 @@ public class WorldConfig extends ConfigFile {
         List<Entry<String, Integer>> cbi = new ArrayList<Entry<String, Integer>>(this.customBiomeGenerationIds.entrySet());
         Collections.sort(cbi, CBV);
         // Print all custom biomes
-        for (Iterator<Entry<String, Integer>> it = cbi.iterator(); it.hasNext(); ) {
-            Entry<String, Integer> entry = it.next();
+        for (Entry<String, Integer> entry : cbi) {
             output.add(entry.getKey() + ":" + entry.getValue());
         }
         writer.putSetting(WorldStandardValues.CUSTOM_BIOMES, output,

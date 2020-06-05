@@ -4,7 +4,7 @@ import com.marc_val_96.advancedworldgenerator.util.helpers.StringHelper;
 
 import java.util.List;
 
-public final class ErroredFunction<T> extends ConfigFunction<T> {
+public abstract class ErroredFunction<T> extends ConfigFunction<T> {
     public final String error;
     private final String name;
     private final List<String> args;
