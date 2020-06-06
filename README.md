@@ -17,7 +17,7 @@ Control vanilla structures like mineshafts, strongholds and villages
 
 Full control of ores, plants, dungeons, ponds and many more
 
-Custom trees and other objects (BO2 and BO3)
+Custom trees and other objects (BO2, BO3, BO4 and BO5 (in work)
 
 Block replacement
 
